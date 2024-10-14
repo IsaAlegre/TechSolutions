@@ -58,16 +58,6 @@ public class Proyecto {
         }
     }
 
-    public void borrarEmpleado(String idEmpleado) {
-        Empleado empleado = empleados.stream().filter(e -> e.getId().equals(idEmpleado)).findFirst().orElse(null);
-        if (empleado != null) {
-            empleados.remove(empleado);
-            System.out.println("Empleado " + empleado.getNombre() + " " + empleado.getApellido() + " eliminado del proyecto " + nombre);
-        } else {
-            System.out.println("Empleado con ID " + idEmpleado + " no encontrado en el proyecto.");
-        }
-    }
-
 
     @Override
     public String toString() {
