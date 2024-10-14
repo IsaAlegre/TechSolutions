@@ -1,15 +1,24 @@
-// src/com/techsolutions/main/Main.java
+
 package Main;
 import Factory.*;
 import Manager.GestorProyectosEmpleados;
 import Persona.cliente.Cliente;
 import Persona.employee.Empleado;
 import Project.Proyecto;
+import adapter.OldDatabase;
+import adapter.ProjectAdapter;
+import adapter.ProjectInfo;
+import model.Task;
+import strategy.RoleAndLeastTasksStrategy;
+import strategy.TaskAssignmentContext;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import java.util.Scanner;
+
+import static Project.Proyecto.listarProyectos;
 
 public class Main {
     private static Scanner scanner = new Scanner(System.in);
@@ -17,6 +26,34 @@ public class Main {
     private static List<Cliente> clientes = new ArrayList<>();
 
     public static void main(String[] args) {
+        // Simulamos la base de datos vieja
+        OldDatabase oldDatabase = new OldDatabase();
+
+        // Adaptador para transformar los datos viejos
+        ProjectAdapter projectAdapter = new ProjectAdapter(oldDatabase);
+
+        // Obtener la información del proyecto desde la base de datos vieja
+        ProjectInfo projectInfo = projectAdapter.getProjectInfo();
+
+        // Verificar si se ha cargado correctamente
+        if (projectInfo != null) {
+            // Crear cliente y empleado si no existen y agregar automáticamente a las listas estáticas
+            Cliente cliente = projectInfo.getCliente();
+            Empleado empleado = projectInfo.getEmpleado();
+
+            // Crear un nuevo proyecto basado en la información extraída y agregarlo a la lista estática de proyectos
+            Proyecto newProject = new Proyecto(
+                    projectInfo.getProjectName(),
+                    projectInfo.getDescripcion(),
+                    projectInfo.getId(),
+                    projectInfo.getFechaDeInicio(),
+                    cliente,
+                    projectInfo.getTasks()
+            );
+
+            // Imprimir los detalles del proyecto
+            System.out.println(projectInfo.imprimirDetalles());
+        }
         boolean exit = false;
 
         while (!exit) {
@@ -57,6 +94,9 @@ public class Main {
                 case "11":
                     asignarEmpleadoAProyecto();
                     break;
+                case "12":
+                    asignarTareaAProyecto(); // Manejo de la nueva opción
+                    break;
                 case "0":
                     exit = true;
                     System.out.println("Saliendo del sistema. ¡Hasta luego!");
@@ -83,7 +123,8 @@ public class Main {
         System.out.println("8. Borrar Empleado");
         System.out.println("9. Crear Project.Proyecto");
         System.out.println("10. Listar Proyectos");
-        System.out.println("11. Asignar Empleado a Project.Proyecto");
+        System.out.println("11. Asignar Empleado a Projecto");
+        System.out.println("12. Asignar Tarea a Proyecto");
         System.out.println("0. Salir");
         System.out.print("Selecciona una opción: ");
     }
@@ -268,8 +309,8 @@ public class Main {
 
     // Métodos para gestionar Proyectos
     private static void crearProyecto() {
-        System.out.println("===== Crear Project.Proyecto =====");
-        System.out.print("Nombre del Project.Proyecto: ");
+        System.out.println("===== Crear Proyecto =====");
+        System.out.print("Nombre del Proyecto: ");
         String nombreProyecto = scanner.nextLine();
 
         System.out.print("Descripción del Proyecto: ");
@@ -282,19 +323,20 @@ public class Main {
 
         Cliente cliente = encontrarClientePorId(idCliente);
         if (cliente == null) {
-            System.out.println("Cliente con ID " + idCliente + " no encontrado. Project.Proyecto no creado.");
+            System.out.println("Cliente con ID " + idCliente + " no encontrado. Proyecto no creado.");
             return;
         }
 
         Date fechaDeInicio = new Date();
 
+        // Crear una lista vacía de tareas para el proyecto
+        List<Task> tareas = new ArrayList<>();
 
-        Proyecto proyecto = new Proyecto(nombreProyecto, descripcionProyecto, idProyecto, fechaDeInicio, cliente);
+        // Pasar la lista de tareas al constructor
+        Proyecto proyecto = new Proyecto(nombreProyecto, descripcionProyecto, idProyecto, fechaDeInicio, cliente, tareas);
         pm.agregarProyecto(proyecto);
-    }
 
-    private static void listarProyectos() {
-        pm.listarProyectos();
+        System.out.println("Proyecto creado exitosamente: " + proyecto);
     }
 
     private static void asignarEmpleadoAProyecto() {
@@ -316,7 +358,62 @@ public class Main {
         }
 
         proyecto.asignarEmpleado(empleado);
+
+
     }
 
+    private static void asignarTareaAProyecto() {
+        System.out.println("===== Asignar Tarea a Project.Proyecto =====");
+        System.out.print("Nombre del Project: ");
+        String nombreProyecto = scanner.nextLine();
+        Proyecto proyecto = pm.encontrarProyectoPorNombre(nombreProyecto);
 
-}
+        if (proyecto == null) {
+            System.out.println("Project con nombre " + nombreProyecto + " no encontrado.");
+            return;
+        }
+
+        System.out.print("Descripción de la tarea: ");
+        String descripcion = scanner.nextLine();
+        Task tarea = new Task("gdml", "dsf", "pghgf"); // Asegúrate de tener un constructor adecuado
+
+        proyecto.agregarTarea(tarea);
+
+        System.out.println("Seleccione el rol para asignar la tarea:");
+        System.out.println("1. Desarrollador");
+        System.out.println("2. Tester");
+        System.out.println("3. Diseñador");
+        String opcion = scanner.nextLine();
+
+        String rol = "";
+        switch (opcion) {
+            case "1":
+                rol = "Desarrollador";
+                break;
+            case "2":
+                rol = "Tester";
+                break;
+            case "3":
+                rol = "Diseñador";
+                break;
+            default:
+                System.out.println("Opción inválida. Tarea no asignada.");
+                return;
+        }
+
+        // Creamos el contexto de asignación de tareas
+        TaskAssignmentContext context = new TaskAssignmentContext(new RoleAndLeastTasksStrategy(rol));
+
+        // Obtener la lista de empleados del gestor
+        List<Empleado> empleados = pm.getEmpleados(); // Asegúrate de que este método existe en tu gestor
+
+        // Asignar la tarea utilizando la estrategia
+        Empleado empleadoAsignado = context.assignTask(tarea, empleados); // Asignamos la tarea usando Strategy
+
+        if (empleadoAsignado != null) {
+            System.out.println("Tarea asignada a empleado: " + empleadoAsignado.getNombre() + " " + empleadoAsignado.getApellido());
+        } else {
+            System.out.println("No se pudo asignar la tarea, no hay empleados disponibles para el rol " + rol);
+        }
+    }
+    }

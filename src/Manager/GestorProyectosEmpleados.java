@@ -1,10 +1,13 @@
 
 package Manager;
-import Persona.cliente.Cliente;
 import Persona.employee.Empleado;
 import Project.Proyecto;
+import adapter.ProjectAdapter;
+import adapter.ProjectInfo;
+import model.Task;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class GestorProyectosEmpleados {
@@ -96,5 +99,28 @@ public class GestorProyectosEmpleados {
             }
         }
         return null;
+    }
+
+    public List<Empleado> getEmpleados() {
+        return empleados;
+    }
+
+    // Método para cargar datos desde ProjectAdapter
+    public void cargarProyectosDesdeAdapter(ProjectAdapter adapter) {
+        ProjectInfo projectInfo = adapter.getProjectInfo();
+        if (projectInfo != null) {
+            Proyecto nuevoProyecto = new Proyecto(
+                    projectInfo.getProjectName(),
+                    "Descripción del proyecto", // Puedes ajustar según sea necesario
+                    "PR" + System.currentTimeMillis(), // ID único para el proyecto
+                    new Date(), // Fecha de inicio
+                    null, // Suponiendo que el cliente se gestiona de otra manera
+                    projectInfo.getTasks());
+            // Agregar las tareas al proyecto
+            for (Task task : projectInfo.getTasks()) {
+                nuevoProyecto.agregarTarea(task); // Asegúrate de que este método exista en la clase Proyecto
+            }
+            agregarProyecto(nuevoProyecto);
+        }
     }
 }
