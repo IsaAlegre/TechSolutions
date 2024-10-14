@@ -375,9 +375,9 @@ public class Main {
 
         System.out.print("Descripción de la tarea: ");
         String descripcion = scanner.nextLine();
-        Task tarea = new Task("gdml", "dsf", "pghgf"); // Asegúrate de tener un constructor adecuado
+        Task tarea = new Task("Nueva Tarea", descripcion, "PENDIENTE");  // Crea una nueva tarea
 
-        proyecto.agregarTarea(tarea);
+        proyecto.agregarTarea(tarea); // Agrega la tarea al proyecto
 
         System.out.println("Seleccione el rol para asignar la tarea:");
         System.out.println("1. Desarrollador");
@@ -412,8 +412,19 @@ public class Main {
 
         if (empleadoAsignado != null) {
             System.out.println("Tarea asignada a empleado: " + empleadoAsignado.getNombre() + " " + empleadoAsignado.getApellido());
+
+            // **Aca está la parte del patrón Observer**
+            // Agregar el empleado como observador de la tarea
+            tarea.añadirObservador(empleadoAsignado);
+            System.out.println(empleadoAsignado.getNombre() + " ha sido agregado como observador de la tarea.");
+
+            // Cambiar el estado de la tarea para disparar la notificación
+            System.out.println("Cambiando el estado de la tarea...");
+            tarea.setStatus("COMPLETADO");  // Cambiamos el estado de la tarea para probar la notificación
         } else {
             System.out.println("No se pudo asignar la tarea, no hay empleados disponibles para el rol " + rol);
         }
     }
-    }
+}
+
+

@@ -1,5 +1,6 @@
 package Persona.employee;
 
+import Observer.Observador;
 import Persona.Persona;
 import model.Task;
 
@@ -8,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 // Empleado.java
-public abstract class EmpleadoBase implements Empleado {
+public abstract class EmpleadoBase implements Empleado, Observador {
     private String nombre;
     private String apellido;
     private String dni;
@@ -24,6 +25,11 @@ public abstract class EmpleadoBase implements Empleado {
         this.id = id;
         this.fechaNacimiento = fechaNacimiento;
         this.assignedTasks = new ArrayList<>();
+    }
+
+    public void actualizar(Task tarea) {
+        System.out.println("Empleado " + nombre + " ha sido notificado. La tarea '"
+                + tarea.getTaskName() + "' ha cambiado su estado a: " + tarea.getStatus());
     }
 
     @Override
