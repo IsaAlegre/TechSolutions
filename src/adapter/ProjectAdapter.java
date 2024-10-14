@@ -1,7 +1,7 @@
 package adapter;
 
 import Persona.cliente.Cliente;
-import Persona.employee.Empleado;
+import Persona.employee.EmpleadoBase;
 import model.Task;
 
 import java.util.ArrayList;
@@ -58,7 +58,7 @@ public class ProjectAdapter {
         String empleadoFechaNacimiento = parseValue(jsonData, "fechaNacimiento");
 
 // Crear objeto Empleado
-        Empleado empleado = new Empleado(empleadoNombre, empleadoApellido, empleadoDNI, empleadoId, empleadoFechaNacimiento) {
+        EmpleadoBase empleado = new EmpleadoBase(empleadoNombre, empleadoApellido, empleadoDNI, empleadoId, empleadoFechaNacimiento) {
             @Override
             public String getRol() {
                 return "";

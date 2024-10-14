@@ -1,7 +1,7 @@
 package Project;// src/com/techsolutions/project/Project.Proyecto.java
 
 import Persona.cliente.Cliente;
-import Persona.employee.Empleado;
+import Persona.employee.EmpleadoBase;
 import Persona.employee.GerenteProyecto;
 import model.Task;
 
@@ -16,7 +16,7 @@ public class Proyecto {
     private Date fechaDeInicio;
     private Cliente cliente;
     private GerenteProyecto gerente;
-    private List<Empleado> empleados;
+    private List<EmpleadoBase> empleados;
     private List<Task> tareas;
     public static List<Proyecto> proyectos = new ArrayList<>();
     public Proyecto(String nombre, String descripcion, String id, Date fechaDeInicio, Cliente cliente, List<Task> tasks) {
@@ -49,7 +49,7 @@ public class Proyecto {
         this.gerente = gerente;
     }
 
-    public List<Empleado> getEmpleados() {
+    public List<EmpleadoBase> getEmpleados() {
         return empleados;
     }
 
@@ -75,7 +75,7 @@ public class Proyecto {
                 '}';
     }
 
-    public void asignarEmpleado(Empleado empleado) {
+    public void asignarEmpleado(EmpleadoBase empleado) {
         if (!empleados.contains(empleado)) {
             empleados.add(empleado);
             System.out.println("Empleado " + empleado.getNombre() + " " + empleado.getApellido() + " asignado al proyecto " + nombre);
@@ -85,7 +85,7 @@ public class Proyecto {
     }
 
     public void borrarEmpleado(String idEmpleado) {
-        Empleado empleado = empleados.stream().filter(e -> e.getId().equals(idEmpleado)).findFirst().orElse(null);
+        EmpleadoBase empleado = empleados.stream().filter(e -> e.getId().equals(idEmpleado)).findFirst().orElse(null);
         if (empleado != null) {
             empleados.remove(empleado);
             System.out.println("Empleado " + empleado.getNombre() + " " + empleado.getApellido() + " eliminado del proyecto " + nombre);

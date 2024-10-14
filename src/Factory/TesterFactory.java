@@ -1,6 +1,6 @@
 package Factory;
 
-import Persona.employee.Empleado;
+import Persona.employee.EmpleadoBase;
 import Persona.employee.Tester;
 
 import java.util.Arrays;
@@ -16,7 +16,7 @@ public class TesterFactory extends EmployeeFactory {
     private static final Random RANDOM = new Random();
 
     @Override
-    public Empleado crearEmpleado(String nombre, String apellido, String dni, String id, String fechaNacimiento) {
+    public EmpleadoBase crearEmpleado(String nombre, String apellido, String dni, String id, String fechaNacimiento) {
         Tester tester = new Tester(nombre, apellido, dni, id, fechaNacimiento);
         String herramientaAsignada = HERRAMIENTAS.get(RANDOM.nextInt(HERRAMIENTAS.size()));
         tester.setHerramienta(herramientaAsignada);

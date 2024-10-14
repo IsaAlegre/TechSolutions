@@ -3,7 +3,7 @@ package Main;
 import Factory.*;
 import Manager.GestorProyectosEmpleados;
 import Persona.cliente.Cliente;
-import Persona.employee.Empleado;
+import Persona.employee.EmpleadoBase;
 import Project.Proyecto;
 import adapter.OldDatabase;
 import adapter.ProjectAdapter;
@@ -39,7 +39,7 @@ public class Main {
         if (projectInfo != null) {
             // Crear cliente y empleado si no existen y agregar automáticamente a las listas estáticas
             Cliente cliente = projectInfo.getCliente();
-            Empleado empleado = projectInfo.getEmpleado();
+            EmpleadoBase empleado = projectInfo.getEmpleado();
 
             // Crear un nuevo proyecto basado en la información extraída y agregarlo a la lista estática de proyectos
             Proyecto newProject = new Proyecto(
@@ -263,7 +263,7 @@ public class Main {
         System.out.print("Fecha de Nacimiento (dd/MM/yyyy): ");
         String fechaNacimiento = scanner.nextLine();
 
-        Empleado empleado = factory.crearEmpleado(nombre, apellido, dni, id, fechaNacimiento);
+        EmpleadoBase empleado = factory.crearEmpleado(nombre, apellido, dni, id, fechaNacimiento);
         pm.agregarEmpleado(empleado);
     }
 
@@ -276,7 +276,7 @@ public class Main {
         System.out.print("Ingrese el ID del empleado a modificar: ");
         String id = scanner.nextLine();
 
-        Empleado empleado = pm.encontrarEmpleadoPorId(id);
+        EmpleadoBase empleado = pm.encontrarEmpleadoPorId(id);
         if (empleado != null) {
             System.out.print("Nuevo Nombre (actual: " + empleado.getNombre() + "): ");
             String nombre = scanner.nextLine();
@@ -351,7 +351,7 @@ public class Main {
 
         System.out.print("ID del Empleado a asignar: ");
         String idEmpleado = scanner.nextLine();
-        Empleado empleado = pm.encontrarEmpleadoPorId(idEmpleado);
+        EmpleadoBase empleado = pm.encontrarEmpleadoPorId(idEmpleado);
         if (empleado == null) {
             System.out.println("Empleado con ID " + idEmpleado + " no encontrado.");
             return;
@@ -405,10 +405,10 @@ public class Main {
         TaskAssignmentContext context = new TaskAssignmentContext(new RoleAndLeastTasksStrategy(rol));
 
         // Obtener la lista de empleados del gestor
-        List<Empleado> empleados = pm.getEmpleados(); // Asegúrate de que este método existe en tu gestor
+        List<EmpleadoBase> empleados = pm.getEmpleados(); // Asegúrate de que este método existe en tu gestor
 
         // Asignar la tarea utilizando la estrategia
-        Empleado empleadoAsignado = context.assignTask(tarea, empleados); // Asignamos la tarea usando Strategy
+        EmpleadoBase empleadoAsignado = context.assignTask(tarea, empleados); // Asignamos la tarea usando Strategy
 
         if (empleadoAsignado != null) {
             System.out.println("Tarea asignada a empleado: " + empleadoAsignado.getNombre() + " " + empleadoAsignado.getApellido());

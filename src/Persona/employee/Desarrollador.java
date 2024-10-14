@@ -1,7 +1,7 @@
 package Persona.employee;
 
 // Desarrollador.java
-public class Desarrollador extends Empleado {
+public class Desarrollador extends EmpleadoBase {
     public Desarrollador(String nombre, String apellido, String dni, String id, String fechaNacimiento) {
         super(nombre, apellido, dni, id, fechaNacimiento);
     }

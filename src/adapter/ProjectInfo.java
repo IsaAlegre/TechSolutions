@@ -1,7 +1,7 @@
 package adapter;
 
 import Persona.cliente.Cliente;
-import Persona.employee.Empleado;
+import Persona.employee.EmpleadoBase;
 import model.Task;
 
 import java.util.Date;
@@ -12,12 +12,12 @@ public class ProjectInfo {
     private String manager;
     private List<Task> tasks;
     private Cliente cliente;
-    private Empleado empleado;
+    private EmpleadoBase empleado;
     private String descripcion;
     private String id;
     private Date fechaDeInicio;
 
-    public ProjectInfo(String projectName, String manager, List<Task> tasks, Cliente cliente, Empleado empleado, String descripcion, String id, Date fechaDeInicio) {
+    public ProjectInfo(String projectName, String manager, List<Task> tasks, Cliente cliente, EmpleadoBase empleado, String descripcion, String id, Date fechaDeInicio) {
         this.projectName = projectName;
         this.manager = manager;
         this.tasks = tasks;
@@ -62,11 +62,11 @@ public class ProjectInfo {
         this.cliente = cliente;
     }
 
-    public Empleado getEmpleado() {
+    public EmpleadoBase getEmpleado() {
         return empleado;
     }
 
-    public void setEmpleado(Empleado empleado) {
+    public void setEmpleado(EmpleadoBase empleado) {
         this.empleado = empleado;
     }
 
