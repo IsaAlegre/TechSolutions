@@ -34,15 +34,16 @@ public class Task implements Observable {
     }
 
     @Override
-    public void notificarObservadores() { // Cambiado a plural, y sin parámetros
+    public void notificarObservadores() {
         for (Observador observador : observadores) {
             observador.actualizar(this); // `this` es la instancia actual de Task
         }
     }
 
-    public void setStatus(String newStatus) {
-        this.status = newStatus;
-        notificarObservadores(); // Notificar a todos los observadores
+    // Método para cambiar el estado de la tarea
+    public void cambiarEstado(String nuevoEstado) {
+        this.status = nuevoEstado; // Cambia el estado a nuevoEstado
+        notificarObservadores(); // Notifica a todos los observadores
     }
 
     public String getStatus() {

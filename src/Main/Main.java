@@ -97,6 +97,12 @@ public class Main {
                 case "12":
                     asignarTareaAProyecto(); // Manejo de la nueva opción
                     break;
+                case "13":
+                    cambiarEstadoTarea(); // Manejo de la opción para cambiar el estado de la tarea
+                    break;
+                case "14":
+                    mostrarResumenProyecto(); // Manejo de la opción para mostrar resumen
+                    break;
                 case "0":
                     exit = true;
                     System.out.println("Saliendo del sistema. ¡Hasta luego!");
@@ -125,6 +131,8 @@ public class Main {
         System.out.println("10. Listar Proyectos");
         System.out.println("11. Asignar Empleado a Projecto");
         System.out.println("12. Asignar Tarea a Proyecto");
+        System.out.println("13. Cambiar Estado de Tarea");
+        System.out.println("14. Mostrar Resumen de Proyecto");
         System.out.println("0. Salir");
         System.out.print("Selecciona una opción: ");
     }
@@ -379,7 +387,7 @@ public class Main {
 
         proyecto.agregarTarea(tarea); // Agrega la tarea al proyecto
 
-        System.out.println("Seleccione el rol para asignar la tarea:");
+        System.out.print("Seleccione el rol para asignar la tarea:");
         System.out.println("1. Desarrollador");
         System.out.println("2. Tester");
         System.out.println("3. Diseñador");
@@ -411,20 +419,63 @@ public class Main {
         EmpleadoBase empleadoAsignado = context.assignTask(tarea, empleados); // Asignamos la tarea usando Strategy
 
         if (empleadoAsignado != null) {
+            // Mostrar el mensaje de asignación de tarea
             System.out.println("Tarea asignada a empleado: " + empleadoAsignado.getNombre() + " " + empleadoAsignado.getApellido());
 
             // **Aca está la parte del patrón Observer**
             // Agregar el empleado como observador de la tarea
             tarea.añadirObservador(empleadoAsignado);
             System.out.println(empleadoAsignado.getNombre() + " ha sido agregado como observador de la tarea.");
-
-            // Cambiar el estado de la tarea para disparar la notificación
-            System.out.println("Cambiando el estado de la tarea...");
-            tarea.setStatus("COMPLETADO");  // Cambiamos el estado de la tarea para probar la notificación
         } else {
             System.out.println("No se pudo asignar la tarea, no hay empleados disponibles para el rol " + rol);
         }
     }
+
+
+    private static void cambiarEstadoTarea() {
+        System.out.println("===== Cambiar Estado de Tarea =====");
+        System.out.print("Nombre del Proyecto: ");
+        String nombreProyecto = scanner.nextLine();
+        Proyecto proyecto = pm.encontrarProyectoPorNombre(nombreProyecto);
+
+        if (proyecto == null) {
+            System.out.println("Proyecto con nombre " + nombreProyecto + " no encontrado.");
+            return;
+        }
+
+        System.out.print("Descripción de la Tarea: ");
+        String descripcionTarea = scanner.nextLine();
+        Task tarea = proyecto.buscarTareaPorDescripcion(descripcionTarea); // Cambiado a buscar por descripción
+
+        if (tarea == null) {
+            System.out.println("Tarea con descripción " + descripcionTarea + " no encontrada.");
+            return;
+        }
+
+        System.out.print("Nuevo estado (PENDIENTE, EN CURSO, COMPLETADO): ");
+        String nuevoEstado = scanner.nextLine().toUpperCase();
+
+        tarea.cambiarEstado(nuevoEstado);
+        System.out.println("El estado de la tarea '" + tarea.getTaskName() + "' ha sido cambiado a '" + nuevoEstado + "'.");
+    }
+
+
+    private static void mostrarResumenProyecto() {
+        System.out.println("===== Mostrar Resumen de Proyecto =====");
+        System.out.print("Nombre del Proyecto: ");
+        String nombreProyecto = scanner.nextLine();
+        Proyecto proyecto = pm.encontrarProyectoPorNombre(nombreProyecto);
+
+        if (proyecto == null) {
+            System.out.println("Proyecto con nombre " + nombreProyecto + " no encontrado.");
+            return;
+        }
+
+        // Llamamos al método de resumen para mostrar el estado
+        proyecto.resumenEstadoTareas();
+    }
+
+
 }
 
 

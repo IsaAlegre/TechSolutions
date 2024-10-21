@@ -54,7 +54,7 @@ public class Proyecto {
     }
 
     public void agregarTarea(Task tarea) {
-        tareas.add(tarea);
+        this.tareas.add(tarea);
         System.out.println("Tarea agregada al proyecto: " + tarea.getDescripcion());
     }
 
@@ -93,6 +93,43 @@ public class Proyecto {
             System.out.println("Empleado con ID " + idEmpleado + " no encontrado en el proyecto.");
         }
     }
+
+    // Método para encontrar una tarea por su nombre
+    public Task buscarTareaPorDescripcion(String descripcion) {
+        for (Task tarea : this.tareas) {
+            if (tarea.getDescripcion().equalsIgnoreCase(descripcion)) { // Compara la descripción
+                return tarea; // Devuelve la tarea si encuentra una coincidencia
+            }
+        }
+        return null; // Devuelve null si no encuentra ninguna tarea
+    }
+
+    public void resumenEstadoTareas() {
+        int tareasPendientes = 0;
+        int tareasEnCurso = 0;
+        int tareasFinalizadas = 0;
+
+        for (Task tarea : tareas) {
+            switch (tarea.getStatus()) {
+                case "Pendiente":
+                    tareasPendientes++;
+                    break;
+                case "En curso":
+                    tareasEnCurso++;
+                    break;
+                case "Finalizada":
+                    tareasFinalizadas++;
+                    break;
+            }
+        }
+
+        System.out.println("Estado del Proyecto: " + nombre);
+        System.out.println("Tareas Pendientes: " + tareasPendientes);
+        System.out.println("Tareas en Curso: " + tareasEnCurso);
+        System.out.println("Tareas Finalizadas: " + tareasFinalizadas);
+    }
+
+
 
     // Método para listar todos los proyectos
     public static void listarProyectos() {
