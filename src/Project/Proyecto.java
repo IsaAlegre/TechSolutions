@@ -58,10 +58,7 @@ public class Proyecto {
         System.out.println("Tarea agregada al proyecto: " + tarea.getDescripcion());
     }
 
-    // Método para listar tareas
-    public List<Task> getTareas() {
-        return tareas;
-    }
+
 
     @Override
     public String toString() {

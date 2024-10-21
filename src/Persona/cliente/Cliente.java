@@ -36,15 +36,5 @@ public class Cliente extends Persona {
 
 
 
-    // Método para listar todos los clientes
-    public static void listarClientes() {
-        if (clientes.isEmpty()) {
-            System.out.println("No hay clientes registrados.");
-        } else {
-            System.out.println("===== Lista de Clientes Registrados =====");
-            for (Cliente cliente : clientes) {
-                System.out.println(cliente);
-            }
-        }
-    }
+
 }
