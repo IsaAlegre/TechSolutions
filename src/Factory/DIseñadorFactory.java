@@ -1,8 +1,7 @@
 package Factory;
 
-import Persona.employee.Desarrollador;
 import Persona.employee.Diseñador;
-import Persona.employee.Empleado;
+import Persona.employee.EmpleadoBase;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,7 +14,7 @@ public class DIseñadorFactory extends EmployeeFactory {
     private static final Random RANDOM = new Random();
 
     @Override
-    public Empleado crearEmpleado(String nombre, String apellido, String dni, String id, String fechaNacimiento) {
+    public EmpleadoBase crearEmpleado(String nombre, String apellido, String dni, String id, String fechaNacimiento) {
         Diseñador diseñador = new Diseñador(nombre, apellido, dni, id, fechaNacimiento);
         String herramientaAsignada = HERRAMIENTAS.get(RANDOM.nextInt(HERRAMIENTAS.size()));
         diseñador.setHerramienta(herramientaAsignada);

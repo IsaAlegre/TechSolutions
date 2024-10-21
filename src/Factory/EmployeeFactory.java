@@ -1,8 +1,8 @@
 package Factory;
 
-import Persona.employee.Empleado;
+import Persona.employee.EmpleadoBase;
 
 // Factory.EmployeeFactory.java
 public abstract class EmployeeFactory {
-    public abstract Empleado crearEmpleado(String nombre, String apellido, String dni, String id, String fechaNacimiento);
+    public abstract EmpleadoBase crearEmpleado(String nombre, String apellido, String dni, String id, String fechaNacimiento);
 }

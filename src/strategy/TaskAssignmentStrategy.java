@@ -1,10 +1,10 @@
 package strategy;
 
-import Persona.employee.Empleado;
+import Persona.employee.EmpleadoBase;
 import model.Task;
 
 import java.util.List;
 
 public interface TaskAssignmentStrategy {
-    Empleado assignTask(Task task, List<Empleado> empleados);
+    EmpleadoBase assignTask(Task task, List<EmpleadoBase> empleados);
 }

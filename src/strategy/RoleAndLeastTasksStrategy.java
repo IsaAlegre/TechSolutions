@@ -1,6 +1,6 @@
 package strategy;
 
-import Persona.employee.Empleado;
+import Persona.employee.EmpleadoBase;
 
 import model.Task;
 
@@ -16,10 +16,10 @@ public class RoleAndLeastTasksStrategy implements TaskAssignmentStrategy {
 
 
         @Override
-        public Empleado assignTask(Task task, List<Empleado > empleados) {
-            Empleado selectedEmployee = null;
+        public EmpleadoBase assignTask(Task task, List<EmpleadoBase> empleados) {
+            EmpleadoBase selectedEmployee = null;
 
-            for (Empleado empleado : empleados) {
+            for (EmpleadoBase empleado : empleados) {
                 if (empleado.getRol().equals(requiredRole)) {
                     // Si aún no hemos seleccionado un empleado o el actual tiene menos tareas asignadas
                     if (selectedEmployee == null || empleado.getAssignedTasksCount() < selectedEmployee.getAssignedTasksCount()) {

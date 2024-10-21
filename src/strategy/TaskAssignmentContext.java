@@ -1,6 +1,6 @@
 package strategy;
 
-import Persona.employee.Empleado;
+import Persona.employee.EmpleadoBase;
 import model.Task;
 
 import java.util.List;
@@ -16,7 +16,7 @@ public class TaskAssignmentContext {
         this.strategy = strategy;
     }
 
-    public Empleado assignTask(Task task, List<Empleado > empleados ) {
+    public EmpleadoBase assignTask(Task task, List<EmpleadoBase> empleados ) {
        return  strategy.assignTask(task, empleados);
     }
 }

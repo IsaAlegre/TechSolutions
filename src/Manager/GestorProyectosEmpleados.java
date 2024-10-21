@@ -1,6 +1,7 @@
 
 package Manager;
 import Persona.employee.Empleado;
+import Persona.employee.EmpleadoBase;
 import Project.Proyecto;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
 public class GestorProyectosEmpleados {
     private static GestorProyectosEmpleados instance;
     private List<Proyecto> proyectos;
-    private List<Empleado> empleados;
+    private List<EmpleadoBase> empleados;
 
     // Constructor privado para evitar instanciación
     private GestorProyectosEmpleados() {
@@ -30,13 +31,13 @@ public class GestorProyectosEmpleados {
 
 
     // Métodos para gestionar Empleados
-    public void agregarEmpleado(Empleado empleado) {
+    public void agregarEmpleado(EmpleadoBase empleado) {
         empleados.add(empleado);
         System.out.println("Empleado agregado: " + empleado);
     }
 
     public void borrarEmpleado(String id) {
-        Empleado empleado = encontrarEmpleadoPorId(id);
+        EmpleadoBase empleado = encontrarEmpleadoPorId(id);
         if (empleado != null) {
             empleados.remove(empleado);
             System.out.println("Empleado eliminado: " + empleado);
@@ -48,25 +49,31 @@ public class GestorProyectosEmpleados {
     public void modificarEmpleado(String id, String nuevoNombre, String nuevoApellido, String nuevoDni, String nuevaFechaNacimiento) {
         Empleado empleado = encontrarEmpleadoPorId(id);
         if (empleado != null) {
-            empleado.setNombre(nuevoNombre);
-            empleado.setApellido(nuevoApellido);
-            empleado.setDni(nuevoDni);
-            empleado.setFechaNacimiento(nuevaFechaNacimiento);
-            System.out.println("Empleado modificado: " + empleado);
+            if (empleado instanceof EmpleadoBase) {
+                EmpleadoBase empleadoBase = (EmpleadoBase) empleado;
+                empleadoBase.setNombre(nuevoNombre);
+                empleadoBase.setApellido(nuevoApellido);
+                empleadoBase.setDni(nuevoDni);
+                empleadoBase.setFechaNacimiento(nuevaFechaNacimiento);
+                System.out.println("Empleado modificado: " + empleado);
+            } else {
+                System.out.println("El empleado encontrado no es de tipo EmpleadoBase.");
+            }
         } else {
             System.out.println("Empleado con ID " + id + " no encontrado.");
         }
     }
 
+
     public void listarEmpleados() {
         System.out.println("===== Lista de Empleados =====");
-        for (Empleado empleado : empleados) {
+        for (EmpleadoBase empleado : empleados) {
             System.out.println(empleado);
         }
     }
 
-    public Empleado encontrarEmpleadoPorId(String id) {
-        for (Empleado e : empleados) {
+    public EmpleadoBase encontrarEmpleadoPorId(String id) {
+        for (EmpleadoBase e : empleados) {
             if (e.getId().equalsIgnoreCase(id)) {
                 return e;
             }
@@ -96,7 +103,7 @@ public class GestorProyectosEmpleados {
         return null;
     }
 
-    public List<Empleado> getEmpleados() {
+    public List<EmpleadoBase> getEmpleados() {
         return empleados;
     }
 
