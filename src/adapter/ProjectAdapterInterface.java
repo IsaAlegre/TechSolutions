@@ -1,5 +1,5 @@
 package adapter;
 
-public interface ProjectInterface {
+public interface ProjectAdapterInterface {
     ProjectInfo getProjectInfo();
 }

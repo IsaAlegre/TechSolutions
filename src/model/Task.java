@@ -14,7 +14,7 @@ public class Task implements Observable {
 
     public Task(String taskName, String description, String status) {
         this.taskName = taskName;
-        this.status = "Pendiente"; // Estado inicial
+        this.status = "PENDIENTE"; // Estado inicial
         this.observadores = new ArrayList<>();
         this.description = description;
     }

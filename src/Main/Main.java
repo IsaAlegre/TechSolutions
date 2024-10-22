@@ -349,11 +349,11 @@ public class Main {
 
     private static void asignarEmpleadoAProyecto() {
         System.out.println("===== Asignar Empleado a Project.Proyecto =====");
-        System.out.print("Nombre del Project.Proyecto: ");
+        System.out.print("Nombre del Proyecto: ");
         String nombreProyecto = scanner.nextLine();
         Proyecto proyecto = pm.encontrarProyectoPorNombre(nombreProyecto);
         if (proyecto == null) {
-            System.out.println("Project.Proyecto con nombre " + nombreProyecto + " no encontrado.");
+            System.out.println("Proyecto con nombre " + nombreProyecto + " no encontrado.");
             return;
         }
 
@@ -371,7 +371,7 @@ public class Main {
     }
 
     private static void asignarTareaAProyecto() {
-        System.out.println("===== Asignar Tarea a Project.Proyecto =====");
+        System.out.println("===== Asignar Tarea al Proyecto =====");
         System.out.print("Nombre del Project: ");
         String nombreProyecto = scanner.nextLine();
         Proyecto proyecto = pm.encontrarProyectoPorNombre(nombreProyecto);
@@ -452,7 +452,7 @@ public class Main {
             return;
         }
 
-        System.out.print("Nuevo estado (PENDIENTE, EN CURSO, COMPLETADO): ");
+        System.out.print("Nuevo estado (PENDIENTE, EN CURSO, FINALIZADA): ");
         String nuevoEstado = scanner.nextLine().toUpperCase();
 
         tarea.cambiarEstado(nuevoEstado);

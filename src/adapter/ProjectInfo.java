@@ -1,9 +1,7 @@
 package adapter;
-
 import Persona.cliente.Cliente;
 import Persona.employee.EmpleadoBase;
 import model.Task;
-
 import java.util.Date;
 import java.util.List;
 

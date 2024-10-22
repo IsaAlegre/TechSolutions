@@ -1,14 +1,12 @@
 package adapter;
-
 import Persona.cliente.Cliente;
 import Persona.employee.EmpleadoBase;
 import model.Task;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class ProjectAdapter {
+public class ProjectAdapter implements ProjectAdapterInterface {
     private OldDatabase oldDatabase;
 
     public ProjectAdapter(OldDatabase oldDatabase) {
@@ -19,7 +17,7 @@ public class ProjectAdapter {
         String searchKey = "\"" + key + "\":\"";
         int startIndex = jsonData.indexOf(searchKey);
         if (startIndex == -1) {
-            return ""; // Clave no encontrada
+            return "";  //extrae un valor de un JSON en formato de cadena de texto usando una clave key
         }
         startIndex += searchKey.length();
         int endIndex = jsonData.indexOf("\"", startIndex);
@@ -30,7 +28,7 @@ public class ProjectAdapter {
     }
 
     public ProjectInfo getProjectInfo() {
-        String jsonData = oldDatabase.getData();
+        String jsonData = oldDatabase.getData();// obtiene la información del proyecto desde la base de datos antigua
 
         // Parsear manualmente los datos JSON (básico)
         String projectName = parseValue(jsonData, "projectName");
@@ -69,7 +67,7 @@ public class ProjectAdapter {
         List<Task> tasks = new ArrayList<>();
         int startIndex = jsonData.indexOf("[{");
         int endIndex = jsonData.indexOf("}]") + 2;
-
+        //Busca el array de tareasy lo divide en entradas individuales para extraer la información de cada tarea
         if (startIndex != -1 && endIndex != -1) {
             String tasksArray = jsonData.substring(startIndex, endIndex);
             String[] taskEntries = tasksArray.split("\\},\\{");

@@ -2,7 +2,7 @@ package adapter;
 
 public class OldDatabase {
     public String getData() {
-        // Devuelve datos en un formato incompatible (por simplicidad, lo devolvemos como un String JSON)
+        // Devuelve datos en un formato incompatible
         return "{\"projectName\":\"Nuevo Proyecto\"," +
                 "\"manager\":\"Jane Smith\"," +
                 "\"descripcion\":\"Descripción del proyecto\"," +

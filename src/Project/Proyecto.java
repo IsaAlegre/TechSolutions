@@ -58,10 +58,7 @@ public class Proyecto {
         System.out.println("Tarea agregada al proyecto: " + tarea.getDescripcion());
     }
 
-    // Método para listar tareas
-    public List<Task> getTareas() {
-        return tareas;
-    }
+
 
     @Override
     public String toString() {
@@ -111,13 +108,13 @@ public class Proyecto {
 
         for (Task tarea : tareas) {
             switch (tarea.getStatus()) {
-                case "Pendiente":
+                case "PENDIENTE":
                     tareasPendientes++;
                     break;
-                case "En curso":
+                case "EN CURSO":
                     tareasEnCurso++;
                     break;
-                case "Finalizada":
+                case "FINALIZADA":
                     tareasFinalizadas++;
                     break;
             }
