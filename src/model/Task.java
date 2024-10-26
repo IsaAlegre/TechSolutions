@@ -2,6 +2,7 @@ package model;
 
 import Observer.Observable;
 import Observer.Observador;
+import Project.Proyecto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,12 +12,17 @@ public class Task implements Observable {
     private String status;
     private String description;
     private List<Observador> observadores;
+    private Proyecto proyecto;
 
     public Task(String taskName, String description, String status) {
         this.taskName = taskName;
         this.status = "PENDIENTE"; // Estado inicial
         this.observadores = new ArrayList<>();
         this.description = description;
+    }
+
+    public void setProyecto(Proyecto proyecto) {
+        this.proyecto = proyecto;
     }
 
     public void setDescription(String description) {
@@ -42,7 +48,10 @@ public class Task implements Observable {
 
     // Método para cambiar el estado de la tarea
     public void cambiarEstado(String nuevoEstado) {
-        this.status = nuevoEstado; // Cambia el estado a nuevoEstado
+        this.status = nuevoEstado;
+        if (proyecto != null) {
+            proyecto.actualizarEstadoTarea(this); // Notifica al proyecto correspondiente
+        }// Cambia el estado a nuevoEstado
         notificarObservadores(); // Notifica a todos los observadores
     }
 

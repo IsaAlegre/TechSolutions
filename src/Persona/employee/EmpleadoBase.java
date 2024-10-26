@@ -28,8 +28,7 @@ public abstract class EmpleadoBase implements Empleado, Observador {
     }
 
     public void actualizar(Task tarea) {
-        System.out.println("Empleado " + nombre + " ha sido notificado. La tarea '"
-                + tarea.getTaskName() + "' ha cambiado su estado a: " + tarea.getStatus());
+        System.out.println("Empleado " + nombre + " ha sido notificado.");
     }
 
     @Override

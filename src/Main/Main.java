@@ -419,9 +419,6 @@ public class Main {
         EmpleadoBase empleadoAsignado = context.assignTask(tarea, empleados); // Asignamos la tarea usando Strategy
 
         if (empleadoAsignado != null) {
-            // Mostrar el mensaje de asignación de tarea
-            System.out.println("Tarea asignada a empleado: " + empleadoAsignado.getNombre() + " " + empleadoAsignado.getApellido());
-
             // **Aca está la parte del patrón Observer**
             // Agregar el empleado como observador de la tarea
             tarea.añadirObservador(empleadoAsignado);
@@ -456,7 +453,7 @@ public class Main {
         String nuevoEstado = scanner.nextLine().toUpperCase();
 
         tarea.cambiarEstado(nuevoEstado);
-        System.out.println("El estado de la tarea '" + tarea.getTaskName() + "' ha sido cambiado a '" + nuevoEstado + "'.");
+        System.out.println("El estado de la tarea '" + tarea.getDescripcion() + "' ha sido cambiado a '" + nuevoEstado + "'.");
     }
 
 

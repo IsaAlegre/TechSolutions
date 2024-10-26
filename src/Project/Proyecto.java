@@ -54,21 +54,20 @@ public class Proyecto {
     }
 
     public void agregarTarea(Task tarea) {
+        tarea.setProyecto(this);
         this.tareas.add(tarea);
         System.out.println("Tarea agregada al proyecto: " + tarea.getDescripcion());
     }
 
-
-
     @Override
     public String toString() {
-        return "Proyecto{" +
-                "nombre='" + nombre + '\'' +
-                ", descripcion='" + descripcion + '\'' +
-                ", id='" + id + '\'' +
-                ", fechaDeInicio=" + fechaDeInicio +
-                ", cliente=" + cliente +
-                ", tareas=" + tareas.size() + " tareas" +
+        return "Proyecto {\n" +
+                "  nombre: '" + nombre + "'\n" +
+                "  descripcion: '" + descripcion + "'\n" +
+                "  id: '" + id + "'\n" +
+                "  fechaDeInicio: " + fechaDeInicio + "\n" +
+                "  cliente: " + cliente + "\n" +
+                "  tareas: " + tareas.size() + " tareas\n" +
                 '}';
     }
 
@@ -124,6 +123,12 @@ public class Proyecto {
         System.out.println("Tareas Pendientes: " + tareasPendientes);
         System.out.println("Tareas en Curso: " + tareasEnCurso);
         System.out.println("Tareas Finalizadas: " + tareasFinalizadas);
+    }
+
+    public void actualizarEstadoTarea(Task tarea) {
+        // Actualiza el estado de la tarea en el proyecto
+        // Puedes utilizar el método resumenEstadoTareas() para actualizar los contadores
+        resumenEstadoTareas();
     }
 
 
