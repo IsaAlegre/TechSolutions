@@ -1,0 +1,610 @@
+Index: src/adapter/ProjectInfo.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package adapter;\r\n\r\nimport Persona.cliente.Cliente;\r\nimport Persona.employee.EmpleadoBase;\r\nimport model.Task;\r\n\r\nimport java.util.Date;\r\nimport java.util.List;\r\n\r\npublic class ProjectInfo {\r\n    private String projectName;\r\n    private String manager;\r\n    private List<Task> tasks;\r\n    private Cliente cliente;\r\n    private EmpleadoBase empleado;\r\n    private String descripcion;\r\n    private String id;\r\n    private Date fechaDeInicio;\r\n\r\n    public ProjectInfo(String projectName, String manager, List<Task> tasks, Cliente cliente, EmpleadoBase empleado, String descripcion, String id, Date fechaDeInicio) {\r\n        this.projectName = projectName;\r\n        this.manager = manager;\r\n        this.tasks = tasks;\r\n        this.cliente = cliente;\r\n        this.empleado = empleado;\r\n        this.descripcion = descripcion;\r\n        this.id = id;\r\n        this.fechaDeInicio = fechaDeInicio;\r\n    }\r\n\r\n    // Getters y setters\r\n    public String getDescripcion() {\r\n        return descripcion;\r\n    }\r\n\r\n    public void setDescripcion(String descripcion) {\r\n        this.descripcion = descripcion;\r\n    }\r\n\r\n    public String getId() {\r\n        return id;\r\n    }\r\n\r\n    public void setId(String id) {\r\n        this.id = id;\r\n    }\r\n\r\n    public Date getFechaDeInicio() {\r\n        return fechaDeInicio;\r\n    }\r\n\r\n    public void setFechaDeInicio(Date fechaDeInicio) {\r\n        this.fechaDeInicio = fechaDeInicio;\r\n    }\r\n\r\n\r\n    public Cliente getCliente() {\r\n        return cliente;\r\n    }\r\n\r\n    public void setCliente(Cliente cliente) {\r\n        this.cliente = cliente;\r\n    }\r\n\r\n    public EmpleadoBase getEmpleado() {\r\n        return empleado;\r\n    }\r\n\r\n    public void setEmpleado(EmpleadoBase empleado) {\r\n        this.empleado = empleado;\r\n    }\r\n\r\n    public String getProjectName() {\r\n        return projectName;\r\n    }\r\n\r\n    public String getManager() {\r\n        return manager;\r\n    }\r\n\r\n    public List<Task> getTasks() {\r\n        return tasks;\r\n    }\r\n\r\n    public String imprimirDetalles() {\r\n        StringBuilder sb = new StringBuilder();\r\n        sb.append(\"Nombre del Proyecto: \").append(projectName).append(\"\\n\")\r\n                .append(\"Descripción: \").append(descripcion).append(\"\\n\")\r\n                .append(\"ID: \").append(id).append(\"\\n\")\r\n                .append(\"Fecha de Inicio: \").append(fechaDeInicio).append(\"\\n\");\r\n\r\n        // Detalles del cliente\r\n        String clientDetails = cliente != null ?\r\n                \"Cliente: \" + cliente.getNombre() + \" \" + cliente.getApellido() + \", DNI: \" + cliente.getDni() + \", Dirección: \" + cliente.getDireccion()\r\n                : \"Sin cliente\";\r\n        sb.append(clientDetails).append(\"\\n\");\r\n\r\n        // Detalles del empleado\r\n        String empleadoDetails = empleado != null ?\r\n                \"Empleado: ID: \" + empleado.getId() + \", Nombre: \" + empleado.getNombre() + \", DNI: \" + empleado.getDni() + \", Fecha de Nacimiento: \" + empleado.getFechaNacimiento()\r\n                : \"Sin empleado\";\r\n        sb.append(empleadoDetails).append(\"\\n\");\r\n\r\n        if (tasks != null && !tasks.isEmpty()) {\r\n            for (Task task : tasks) {\r\n                sb.append(\"Tarea: \").append(task.getTaskName()).append(\", \")\r\n                        .append(\"estado: \").append(task.getDescripcion()).append(\", \")\r\n                        .append(\"descripcion: \").append(task.getStatus()).append(\"\\n\");\r\n            }\r\n        } else {\r\n            sb.append(\"No hay tareas asignadas.\\n\");\r\n        }\r\n\r\n        return sb.toString();\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/adapter/ProjectInfo.java b/src/adapter/ProjectInfo.java
+--- a/src/adapter/ProjectInfo.java	(revision de0ca8f0a76e8ee1851ee29a3f9e36bb1b1d666f)
++++ b/src/adapter/ProjectInfo.java	(date 1730061759592)
+@@ -1,9 +1,7 @@
+ package adapter;
+-
+ import Persona.cliente.Cliente;
+ import Persona.employee.EmpleadoBase;
+ import model.Task;
+-
+ import java.util.Date;
+ import java.util.List;
+ 
+Index: src/Project/Proyecto.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package Project;// src/com/techsolutions/project/Project.Proyecto.java\r\n\r\nimport Persona.cliente.Cliente;\r\nimport Persona.employee.EmpleadoBase;\r\nimport Persona.employee.GerenteProyecto;\r\nimport model.Task;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.Date;\r\nimport java.util.List;\r\n\r\npublic class Proyecto {\r\n    private String nombre;\r\n    private String descripcion;\r\n    private String id;\r\n    private Date fechaDeInicio;\r\n    private Cliente cliente;\r\n    private GerenteProyecto gerente;\r\n    private List<EmpleadoBase> empleados;\r\n    private List<Task> tareas;\r\n    public static List<Proyecto> proyectos = new ArrayList<>();\r\n    public Proyecto(String nombre, String descripcion, String id, Date fechaDeInicio, Cliente cliente, List<Task> tasks) {\r\n        this.nombre = nombre;\r\n        this.descripcion = descripcion;\r\n        this.id = id;\r\n        this.fechaDeInicio = fechaDeInicio;\r\n        this.cliente = cliente;\r\n        this.empleados = new ArrayList<>();\r\n        this.tareas = new ArrayList<>();\r\n        proyectos.add(this);\r\n\r\n    }\r\n\r\n\r\n    // Getters y Setters\r\n    public String getNombre() {\r\n        return nombre;\r\n    }\r\n\r\n\r\n    public void agregarTarea(Task tarea) {\r\n        tareas.add(tarea);\r\n        System.out.println(\"Tarea agregada al proyecto: \" + tarea.getDescripcion());\r\n    }\r\n\r\n    // Método para listar tareas\r\n    public List<Task> getTareas() {\r\n        return tareas;\r\n    }\r\n\r\n    @Override\r\n    public String toString() {\r\n        return \"Proyecto{\" +\r\n                \"nombre='\" + nombre + '\\'' +\r\n                \", descripcion='\" + descripcion + '\\'' +\r\n                \", id='\" + id + '\\'' +\r\n                \", fechaDeInicio=\" + fechaDeInicio +\r\n                \", cliente=\" + cliente +\r\n                \", tareas=\" + tareas.size() + \" tareas\" +\r\n                '}';\r\n    }\r\n\r\n    public void asignarEmpleado(EmpleadoBase empleado) {\r\n        if (!empleados.contains(empleado)) {\r\n            empleados.add(empleado);\r\n            System.out.println(\"Empleado \" + empleado.getNombre() + \" \" + empleado.getApellido() + \" asignado al proyecto \" + nombre);\r\n        } else {\r\n            System.out.println(\"El empleado ya está asignado al proyecto.\");\r\n        }\r\n    }\r\n\r\n    // Método para listar todos los proyectos\r\n    public static void listarProyectos() {\r\n        if (proyectos.isEmpty()) {\r\n            System.out.println(\"No hay proyectos registrados.\");\r\n        } else {\r\n            for (Proyecto proyecto : proyectos) {\r\n                System.out.println(proyecto);\r\n            }}}\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Project/Proyecto.java b/src/Project/Proyecto.java
+--- a/src/Project/Proyecto.java	(revision de0ca8f0a76e8ee1851ee29a3f9e36bb1b1d666f)
++++ b/src/Project/Proyecto.java	(date 1730061799537)
+@@ -37,26 +37,37 @@
+         return nombre;
+     }
+ 
++    public Cliente getCliente() {
++        return cliente;
++    }
++
++    public GerenteProyecto getGerente() {
++        return gerente;
++    }
++
++    public void setGerente(GerenteProyecto gerente) {
++        this.gerente = gerente;
++    }
++
++    public List<EmpleadoBase> getEmpleados() {
++        return empleados;
++    }
+ 
+     public void agregarTarea(Task tarea) {
+-        tareas.add(tarea);
++        tarea.setProyecto(this);
++        this.tareas.add(tarea);
+         System.out.println("Tarea agregada al proyecto: " + tarea.getDescripcion());
+     }
+ 
+-    // Método para listar tareas
+-    public List<Task> getTareas() {
+-        return tareas;
+-    }
+-
+     @Override
+     public String toString() {
+-        return "Proyecto{" +
+-                "nombre='" + nombre + '\'' +
+-                ", descripcion='" + descripcion + '\'' +
+-                ", id='" + id + '\'' +
+-                ", fechaDeInicio=" + fechaDeInicio +
+-                ", cliente=" + cliente +
+-                ", tareas=" + tareas.size() + " tareas" +
++        return "Proyecto {\n" +
++                "  nombre: '" + nombre + "'\n" +
++                "  descripcion: '" + descripcion + "'\n" +
++                "  id: '" + id + "'\n" +
++                "  fechaDeInicio: " + fechaDeInicio + "\n" +
++                "  cliente: " + cliente + "\n" +
++                "  tareas: " + tareas.size() + " tareas\n" +
+                 '}';
+     }
+ 
+@@ -69,6 +80,59 @@
+         }
+     }
+ 
++    public void borrarEmpleado(String idEmpleado) {
++        EmpleadoBase empleado = empleados.stream().filter(e -> e.getId().equals(idEmpleado)).findFirst().orElse(null);
++        if (empleado != null) {
++            empleados.remove(empleado);
++            System.out.println("Empleado " + empleado.getNombre() + " " + empleado.getApellido() + " eliminado del proyecto " + nombre);
++        } else {
++            System.out.println("Empleado con ID " + idEmpleado + " no encontrado en el proyecto.");
++        }
++    }
++
++    // Método para encontrar una tarea por su nombre
++    public Task buscarTareaPorDescripcion(String descripcion) {
++        for (Task tarea : this.tareas) {
++            if (tarea.getDescripcion().equalsIgnoreCase(descripcion)) { // Compara la descripción
++                return tarea; // Devuelve la tarea si encuentra una coincidencia
++            }
++        }
++        return null; // Devuelve null si no encuentra ninguna tarea
++    }
++
++    public void resumenEstadoTareas() {
++        int tareasPendientes = 0;
++        int tareasEnCurso = 0;
++        int tareasFinalizadas = 0;
++
++        for (Task tarea : tareas) {
++            switch (tarea.getStatus()) {
++                case "PENDIENTE":
++                    tareasPendientes++;
++                    break;
++                case "EN CURSO":
++                    tareasEnCurso++;
++                    break;
++                case "FINALIZADA":
++                    tareasFinalizadas++;
++                    break;
++            }
++        }
++
++        System.out.println("Estado del Proyecto: " + nombre);
++        System.out.println("Tareas Pendientes: " + tareasPendientes);
++        System.out.println("Tareas en Curso: " + tareasEnCurso);
++        System.out.println("Tareas Finalizadas: " + tareasFinalizadas);
++    }
++
++    public void actualizarEstadoTarea(Task tarea) {
++        // Actualiza el estado de la tarea en el proyecto
++        // Puedes utilizar el método resumenEstadoTareas() para actualizar los contadores
++        resumenEstadoTareas();
++    }
++
++
++
+     // Método para listar todos los proyectos
+     public static void listarProyectos() {
+         if (proyectos.isEmpty()) {
+Index: src/Manager/GestorProyectosEmpleados.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>\r\npackage Manager;\r\nimport Persona.employee.Empleado;\r\nimport Persona.employee.EmpleadoBase;\r\nimport Project.Proyecto;\r\nimport adapter.ProjectAdapter;\r\nimport adapter.ProjectInfo;\r\nimport model.Task;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.Date;\r\nimport java.util.List;\r\n\r\npublic class GestorProyectosEmpleados {\r\n    private static GestorProyectosEmpleados instance;\r\n    private List<Proyecto> proyectos;\r\n    private List<EmpleadoBase> empleados;\r\n\r\n    // Constructor privado para evitar instanciación\r\n    private GestorProyectosEmpleados() {\r\n        proyectos = new ArrayList<>();\r\n        empleados = new ArrayList<>();\r\n    }\r\n\r\n    // Método para obtener la instancia única de ProjectManager\r\n    public static GestorProyectosEmpleados getInstance() {\r\n        if (instance == null) {\r\n            synchronized (GestorProyectosEmpleados.class) {\r\n                if (instance == null) {\r\n                    instance = new GestorProyectosEmpleados();\r\n                }\r\n            }\r\n        }\r\n        return instance;\r\n    }\r\n\r\n\r\n    // Métodos para gestionar Empleados\r\n    public void agregarEmpleado(EmpleadoBase empleado) {\r\n        empleados.add(empleado);\r\n        System.out.println(\"Empleado agregado: \" + empleado);\r\n    }\r\n\r\n    public void borrarEmpleado(String id) {\r\n        EmpleadoBase empleado = encontrarEmpleadoPorId(id);\r\n        if (empleado != null) {\r\n            empleados.remove(empleado);\r\n            System.out.println(\"Empleado eliminado: \" + empleado);\r\n        } else {\r\n            System.out.println(\"Empleado con ID \" + id + \" no encontrado.\");\r\n        }\r\n    }\r\n\r\n    public void modificarEmpleado(String id, String nuevoNombre, String nuevoApellido, String nuevoDni, String nuevaFechaNacimiento) {\r\n        Empleado empleado = encontrarEmpleadoPorId(id);\r\n        if (empleado != null) {\r\n            if (empleado instanceof EmpleadoBase) {\r\n                EmpleadoBase empleadoBase = (EmpleadoBase) empleado;\r\n                empleadoBase.setNombre(nuevoNombre);\r\n                empleadoBase.setApellido(nuevoApellido);\r\n                empleadoBase.setDni(nuevoDni);\r\n                empleadoBase.setFechaNacimiento(nuevaFechaNacimiento);\r\n                System.out.println(\"Empleado modificado: \" + empleado);\r\n            } else {\r\n                System.out.println(\"El empleado encontrado no es de tipo EmpleadoBase.\");\r\n            }\r\n        } else {\r\n            System.out.println(\"Empleado con ID \" + id + \" no encontrado.\");\r\n        }\r\n    }\r\n\r\n\r\n    public void listarEmpleados() {\r\n        System.out.println(\"===== Lista de Empleados =====\");\r\n        for (EmpleadoBase empleado : empleados) {\r\n            System.out.println(empleado);\r\n        }\r\n    }\r\n\r\n    public EmpleadoBase encontrarEmpleadoPorId(String id) {\r\n        for (EmpleadoBase e : empleados) {\r\n            if (e.getId().equalsIgnoreCase(id)) {\r\n                return e;\r\n            }\r\n        }\r\n        return null;\r\n    }\r\n\r\n    // Métodos para gestionar Proyectos\r\n    public void agregarProyecto(Proyecto proyecto) {\r\n        proyectos.add(proyecto);\r\n        System.out.println(\"Project.Proyecto agregado: \" + proyecto);\r\n    }\r\n\r\n    public void listarProyectos() {\r\n        System.out.println(\"===== Lista de Proyectos =====\");\r\n        for (Proyecto proyecto : proyectos) {\r\n            System.out.println(proyecto);\r\n        }\r\n    }\r\n\r\n    public Proyecto encontrarProyectoPorNombre(String nombre) {\r\n        for (Proyecto p : proyectos) {\r\n            if (p.getNombre().equalsIgnoreCase(nombre)) {\r\n                return p;\r\n            }\r\n        }\r\n        return null;\r\n    }\r\n\r\n    public List<EmpleadoBase> getEmpleados() {\r\n        return empleados;\r\n    }\r\n\r\n    // Método para cargar datos desde ProjectAdapter\r\n    public void cargarProyectosDesdeAdapter(ProjectAdapter adapter) {\r\n        ProjectInfo projectInfo = adapter.getProjectInfo();\r\n        if (projectInfo != null) {\r\n            Proyecto nuevoProyecto = new Proyecto(\r\n                    projectInfo.getProjectName(),\r\n                    \"Descripción del proyecto\", // Puedes ajustar según sea necesario\r\n                    \"PR\" + System.currentTimeMillis(), // ID único para el proyecto\r\n                    new Date(), // Fecha de inicio\r\n                    null, // Suponiendo que el cliente se gestiona de otra manera\r\n                    projectInfo.getTasks());\r\n            // Agregar las tareas al proyecto\r\n            for (Task task : projectInfo.getTasks()) {\r\n                nuevoProyecto.agregarTarea(task); // Asegúrate de que este método exista en la clase Proyecto\r\n            }\r\n            agregarProyecto(nuevoProyecto);\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Manager/GestorProyectosEmpleados.java b/src/Manager/GestorProyectosEmpleados.java
+--- a/src/Manager/GestorProyectosEmpleados.java	(revision de0ca8f0a76e8ee1851ee29a3f9e36bb1b1d666f)
++++ b/src/Manager/GestorProyectosEmpleados.java	(date 1730061759585)
+@@ -3,12 +3,7 @@
+ import Persona.employee.Empleado;
+ import Persona.employee.EmpleadoBase;
+ import Project.Proyecto;
+-import adapter.ProjectAdapter;
+-import adapter.ProjectInfo;
+-import model.Task;
+-
+ import java.util.ArrayList;
+-import java.util.Date;
+ import java.util.List;
+ 
+ public class GestorProyectosEmpleados {
+@@ -112,22 +107,5 @@
+         return empleados;
+     }
+ 
+-    // Método para cargar datos desde ProjectAdapter
+-    public void cargarProyectosDesdeAdapter(ProjectAdapter adapter) {
+-        ProjectInfo projectInfo = adapter.getProjectInfo();
+-        if (projectInfo != null) {
+-            Proyecto nuevoProyecto = new Proyecto(
+-                    projectInfo.getProjectName(),
+-                    "Descripción del proyecto", // Puedes ajustar según sea necesario
+-                    "PR" + System.currentTimeMillis(), // ID único para el proyecto
+-                    new Date(), // Fecha de inicio
+-                    null, // Suponiendo que el cliente se gestiona de otra manera
+-                    projectInfo.getTasks());
+-            // Agregar las tareas al proyecto
+-            for (Task task : projectInfo.getTasks()) {
+-                nuevoProyecto.agregarTarea(task); // Asegúrate de que este método exista en la clase Proyecto
+-            }
+-            agregarProyecto(nuevoProyecto);
+-        }
+-    }
++
+ }
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"f238a37f-26eb-4912-bf57-0781fdbb0955\" name=\"Changes\" comment=\"\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/misc.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/misc.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/Main/Main.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/Main/Main.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/Project/Proyecto.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/Project/Proyecto.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Interface\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;TobyX73&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\"><![CDATA[{\r\n  \"selectedUrlAndAccountId\": {\r\n    \"url\": \"https://github.com/IsaAlegre/TechSolutions.git\",\r\n    \"accountId\": \"896b2824-7b82-4a1e-b138-394e7538bb0a\"\r\n  }\r\n}]]></component>\r\n  <component name=\"ProblemsViewState\">\r\n    <option name=\"selectedTabId\" value=\"CurrentFile\" />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 3\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2nQd7PNLKoalIelnwhjgL3UPkgR\" />\r\n  <component name=\"ProjectLevelVcsManager\">\r\n    <ConfirmationsSetting value=\"1\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;Application.Main.executor&quot;: &quot;Run&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;git-widget-placeholder&quot;: &quot;master&quot;,\r\n    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;\r\n  }\r\n}</component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"f238a37f-26eb-4912-bf57-0781fdbb0955\" name=\"Changes\" comment=\"\" />\r\n      <created>1728909065945</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1728909065945</updated>\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"XDebuggerManager\">\r\n    <breakpoint-manager>\r\n      <breakpoints>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/src/adapter/ProjectInfo.java</url>\r\n          <line>32</line>\r\n          <option name=\"timeStamp\" value=\"4\" />\r\n        </line-breakpoint>\r\n      </breakpoints>\r\n    </breakpoint-manager>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision de0ca8f0a76e8ee1851ee29a3f9e36bb1b1d666f)
++++ b/.idea/workspace.xml	(date 1730061802850)
+@@ -5,10 +5,18 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="f238a37f-26eb-4912-bf57-0781fdbb0955" name="Changes" comment="">
++<<<<<<< HEAD
+       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/Main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/Main.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/Project/Proyecto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Project/Proyecto.java" afterDir="false" />
++=======
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/Main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/Main.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/Persona/employee/EmpleadoBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Persona/employee/EmpleadoBase.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/Project/Proyecto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Project/Proyecto.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/model/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Task.java" afterDir="false" />
++>>>>>>> 530069db25379ca61550dd112f1b8f68473a31b7
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -36,7 +44,16 @@
+     "url": "https://github.com/IsaAlegre/TechSolutions.git",
+     "accountId": "896b2824-7b82-4a1e-b138-394e7538bb0a"
+   }
++<<<<<<< HEAD
+ }]]></component>
++=======
++}</component>
++  <component name="HighlightingSettingsPerFile">
++    <setting file="file://$PROJECT_DIR$/src/Main/Main.java" root0="SKIP_INSPECTION" />
++    <setting file="file://$PROJECT_DIR$/src/Project/Proyecto.java" root0="SKIP_INSPECTION" />
++    <setting file="file://$PROJECT_DIR$/src/model/Task.java" root0="SKIP_INSPECTION" />
++  </component>
++>>>>>>> 530069db25379ca61550dd112f1b8f68473a31b7
+   <component name="ProblemsViewState">
+     <option name="selectedTabId" value="CurrentFile" />
+   </component>
+@@ -58,7 +75,31 @@
+     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;
+   }
++<<<<<<< HEAD
+ }</component>
++=======
++}]]></component>
++  <component name="RunManager">
++    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
++      <option name="MAIN_CLASS_NAME" value="Main.Main" />
++      <module name="TechSolutions" />
++      <extension name="coverage">
++        <pattern>
++          <option name="PATTERN" value="Main.*" />
++          <option name="ENABLED" value="true" />
++        </pattern>
++      </extension>
++      <method v="2">
++        <option name="Make" enabled="true" />
++      </method>
++    </configuration>
++    <recent_temporary>
++      <list>
++        <item itemvalue="Application.Main" />
++      </list>
++    </recent_temporary>
++  </component>
++>>>>>>> 530069db25379ca61550dd112f1b8f68473a31b7
+   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+   <component name="TaskManager">
+     <task active="true" id="Default" summary="Default task">
+@@ -86,7 +127,7 @@
+       <breakpoints>
+         <line-breakpoint enabled="true" type="java-line">
+           <url>file://$PROJECT_DIR$/src/adapter/ProjectInfo.java</url>
+-          <line>32</line>
++          <line>30</line>
+           <option name="timeStamp" value="4" />
+         </line-breakpoint>
+       </breakpoints>
+Index: src/Persona/cliente/Cliente.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package Persona.cliente;\r\n\r\nimport Persona.Persona;\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\npublic class Cliente extends Persona {\r\n    private String direccion;\r\n\r\n    // Lista estática para almacenar los clientes\r\n    public static List<Cliente> clientes = new ArrayList<>();\r\n\r\n    public Cliente(String nombre, String apellido, String dni, String id, String fechaNacimiento, String direccion) {\r\n        super(nombre, apellido, dni, id, fechaNacimiento);\r\n        this.direccion = direccion;\r\n\r\n        // Verificar si el cliente ya existe antes de agregarlo\r\n        boolean clienteExistente = clientes.stream()\r\n                .anyMatch(c -> c.getId().equals(id));\r\n\r\n        if (!clienteExistente) {\r\n            clientes.add(this);\r\n        } else {\r\n            System.out.println(\"El cliente con ID \" + id + \" ya está registrado.\");\r\n        }\r\n    }\r\n\r\n    // Getter y Setter\r\n    public String getDireccion() {\r\n        return direccion;\r\n    }\r\n\r\n    public void setDireccion(String direccion) {\r\n        this.direccion = direccion;\r\n    }\r\n\r\n\r\n\r\n    // Método para listar todos los clientes\r\n    public static void listarClientes() {\r\n        if (clientes.isEmpty()) {\r\n            System.out.println(\"No hay clientes registrados.\");\r\n        } else {\r\n            System.out.println(\"===== Lista de Clientes Registrados =====\");\r\n            for (Cliente cliente : clientes) {\r\n                System.out.println(cliente);\r\n            }\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Persona/cliente/Cliente.java b/src/Persona/cliente/Cliente.java
+--- a/src/Persona/cliente/Cliente.java	(revision de0ca8f0a76e8ee1851ee29a3f9e36bb1b1d666f)
++++ b/src/Persona/cliente/Cliente.java	(date 1730061759586)
+@@ -36,15 +36,5 @@
+ 
+ 
+ 
+-    // Método para listar todos los clientes
+-    public static void listarClientes() {
+-        if (clientes.isEmpty()) {
+-            System.out.println("No hay clientes registrados.");
+-        } else {
+-            System.out.println("===== Lista de Clientes Registrados =====");
+-            for (Cliente cliente : clientes) {
+-                System.out.println(cliente);
+-            }
+-        }
+-    }
++
+ }
+Index: src/Main/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>\r\npackage Main;\r\nimport Factory.*;\r\nimport Manager.GestorProyectosEmpleados;\r\nimport Persona.cliente.Cliente;\r\nimport Persona.employee.EmpleadoBase;\r\nimport Project.Proyecto;\r\nimport adapter.OldDatabase;\r\nimport adapter.ProjectAdapter;\r\nimport adapter.ProjectInfo;\r\nimport model.Task;\r\nimport strategy.RoleAndLeastTasksStrategy;\r\nimport strategy.TaskAssignmentContext;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.Date;\r\nimport java.util.List;\r\n\r\nimport java.util.Scanner;\r\n\r\nimport static Project.Proyecto.listarProyectos;\r\n\r\npublic class Main {\r\n    private static Scanner scanner = new Scanner(System.in);\r\n    private static GestorProyectosEmpleados pm = GestorProyectosEmpleados.getInstance();\r\n    private static List<Cliente> clientes = new ArrayList<>();\r\n\r\n    public static void main(String[] args) {\r\n        // Simulamos la base de datos vieja\r\n        OldDatabase oldDatabase = new OldDatabase();\r\n\r\n        // Adaptador para transformar los datos viejos\r\n        ProjectAdapter projectAdapter = new ProjectAdapter(oldDatabase);\r\n\r\n        // Obtener la información del proyecto desde la base de datos vieja\r\n        ProjectInfo projectInfo = projectAdapter.getProjectInfo();\r\n\r\n        // Verificar si se ha cargado correctamente\r\n        if (projectInfo != null) {\r\n            // Crear cliente y empleado si no existen y agregar automáticamente a las listas estáticas\r\n            Cliente cliente = projectInfo.getCliente();\r\n            EmpleadoBase empleado = projectInfo.getEmpleado();\r\n\r\n            // Crear un nuevo proyecto basado en la información extraída y agregarlo a la lista estática de proyectos\r\n            Proyecto newProject = new Proyecto(\r\n                    projectInfo.getProjectName(),\r\n                    projectInfo.getDescripcion(),\r\n                    projectInfo.getId(),\r\n                    projectInfo.getFechaDeInicio(),\r\n                    cliente,\r\n                    projectInfo.getTasks()\r\n            );\r\n\r\n            // Imprimir los detalles del proyecto\r\n            System.out.println(projectInfo.imprimirDetalles());\r\n        }\r\n        boolean exit = false;\r\n\r\n        while (!exit) {\r\n            mostrarMenu();\r\n            String opcion = scanner.nextLine();\r\n\r\n            switch (opcion) {\r\n                case \"1\":\r\n                    agregarCliente();\r\n                    break;\r\n                case \"2\":\r\n                    listarClientes();\r\n                    break;\r\n                case \"3\":\r\n                    modificarCliente();\r\n                    break;\r\n                case \"4\":\r\n                    borrarCliente();\r\n                    break;\r\n                case \"5\":\r\n                    agregarEmpleado();\r\n                    break;\r\n                case \"6\":\r\n                    listarEmpleados();\r\n                    break;\r\n                case \"7\":\r\n                    modificarEmpleado();\r\n                    break;\r\n                case \"8\":\r\n                    borrarEmpleado();\r\n                    break;\r\n                case \"9\":\r\n                    crearProyecto();\r\n                    break;\r\n                case \"10\":\r\n                    listarProyectos();\r\n                    break;\r\n                case \"11\":\r\n                    asignarEmpleadoAProyecto();\r\n                    break;\r\n                case \"12\":\r\n                    asignarTareaAProyecto(); // Manejo de la nueva opción\r\n                    break;\r\n                case \"0\":\r\n                    exit = true;\r\n                    System.out.println(\"Saliendo del sistema. ¡Hasta luego!\");\r\n                    break;\r\n                default:\r\n                    System.out.println(\"Opción inválida. Por favor, intenta nuevamente.\");\r\n            }\r\n\r\n            System.out.println(); // Línea en blanco para mejor legibilidad\r\n        }\r\n\r\n        scanner.close();\r\n    }\r\n\r\n    private static void mostrarMenu() {\r\n        System.out.println(\"===== Sistema de Gestión de Proyectos - Tech Solutions =====\");\r\n        System.out.println(\"1. Agregar Cliente\");\r\n        System.out.println(\"2. Listar Clientes\");\r\n        System.out.println(\"3. Modificar Cliente\");\r\n        System.out.println(\"4. Borrar Cliente\");\r\n        System.out.println(\"5. Agregar Empleado\");\r\n        System.out.println(\"6. Listar Empleados\");\r\n        System.out.println(\"7. Modificar Empleado\");\r\n        System.out.println(\"8. Borrar Empleado\");\r\n        System.out.println(\"9. Crear Project\");\r\n        System.out.println(\"10. Listar Proyectos\");\r\n        System.out.println(\"11. Asignar Empleado a Projecto\");\r\n        System.out.println(\"12. Asignar Tarea a Proyecto\");\r\n        System.out.println(\"0. Salir\");\r\n        System.out.print(\"Selecciona una opción: \");\r\n    }\r\n\r\n    private static void agregarCliente() {\r\n        System.out.println(\"===== Agregar Cliente =====\");\r\n        System.out.print(\"Nombre: \");\r\n        String nombre = scanner.nextLine();\r\n        System.out.print(\"Apellido: \");\r\n        String apellido = scanner.nextLine();\r\n        System.out.print(\"DNI: \");\r\n        String dni = scanner.nextLine();\r\n        System.out.print(\"ID (CLXXX): \");\r\n        String id = scanner.nextLine();\r\n        System.out.print(\"Fecha de Nacimiento (dd/MM/yyyy): \");\r\n        String fechaNacimiento = scanner.nextLine();\r\n        System.out.print(\"Dirección: \");\r\n        String direccion = scanner.nextLine();\r\n\r\n        Cliente cliente = new Cliente(nombre, apellido, dni, id, fechaNacimiento, direccion);\r\n        clientes.add(cliente);\r\n        System.out.println(\"Cliente agregado: \" + cliente);\r\n    }\r\n\r\n    private static void listarClientes() {\r\n        System.out.println(\"===== Lista de Clientes =====\");\r\n        for (Cliente cliente : clientes) {\r\n            System.out.println(cliente);\r\n        }\r\n    }\r\n\r\n    private static void modificarCliente() {\r\n        System.out.println(\"===== Modificar Cliente =====\");\r\n        System.out.print(\"Ingrese el ID del cliente a modificar: \");\r\n        String id = scanner.nextLine();\r\n\r\n        Cliente cliente = encontrarClientePorId(id);\r\n        if (cliente != null) {\r\n            System.out.print(\"Nuevo Nombre (actual: \" + cliente.getNombre() + \"): \");\r\n            String nombre = scanner.nextLine();\r\n            if (nombre.isEmpty()) nombre = cliente.getNombre();\r\n\r\n            System.out.print(\"Nuevo Apellido (actual: \" + cliente.getApellido() + \"): \");\r\n            String apellido = scanner.nextLine();\r\n            if (apellido.isEmpty()) apellido = cliente.getApellido();\r\n\r\n            System.out.print(\"Nuevo DNI (actual: \" + cliente.getDni() + \"): \");\r\n            String dni = scanner.nextLine();\r\n            if (dni.isEmpty()) dni = cliente.getDni();\r\n\r\n            System.out.print(\"Nueva Dirección (actual: \" + cliente.getDireccion() + \"): \");\r\n            String direccion = scanner.nextLine();\r\n            if (direccion.isEmpty()) direccion = cliente.getDireccion();\r\n\r\n            System.out.print(\"Nueva Fecha de Nacimiento (actual: \" + cliente.getFechaNacimiento() + \"): \");\r\n            String fechaNacimiento = scanner.nextLine();\r\n            if (fechaNacimiento.isEmpty()) fechaNacimiento = cliente.getFechaNacimiento();\r\n\r\n            cliente.setNombre(nombre);\r\n            cliente.setApellido(apellido);\r\n            cliente.setDni(dni);\r\n            cliente.setDireccion(direccion);\r\n            cliente.setFechaNacimiento(fechaNacimiento);\r\n            System.out.println(\"Cliente modificado: \" + cliente);\r\n        } else {\r\n            System.out.println(\"Cliente con ID \" + id + \" no encontrado.\");\r\n        }\r\n    }\r\n\r\n    private static void borrarCliente() {\r\n        System.out.println(\"===== Borrar Cliente =====\");\r\n        System.out.print(\"Ingrese el ID del cliente a eliminar: \");\r\n        String id = scanner.nextLine();\r\n        Cliente cliente = encontrarClientePorId(id);\r\n        if (cliente != null) {\r\n            clientes.remove(cliente);\r\n            System.out.println(\"Cliente eliminado: \" + cliente);\r\n        } else {\r\n            System.out.println(\"Cliente con ID \" + id + \" no encontrado.\");\r\n        }\r\n    }\r\n\r\n    private static Cliente encontrarClientePorId(String id) {\r\n        for (Cliente c : clientes) {\r\n            if (c.getId().equalsIgnoreCase(id)) {\r\n                return c;\r\n            }\r\n        }\r\n        return null;\r\n    }\r\n\r\n    // Métodos para gestionar Empleados\r\n    private static void agregarEmpleado() {\r\n        System.out.println(\"===== Agregar Empleado =====\");\r\n        System.out.println(\"Seleccione el rol del empleado:\");\r\n        System.out.println(\"1. Desarrollador\");\r\n        System.out.println(\"2. Tester\");\r\n        System.out.println(\"3. Gerente de Project.Proyecto\");\r\n        System.out.println(\"4. Diseñador\");\r\n        System.out.print(\"Opción: \");\r\n        String opcion = scanner.nextLine();\r\n\r\n        String rol = \"\";\r\n        EmployeeFactory factory = null;\r\n\r\n        switch (opcion) {\r\n            case \"1\":\r\n                rol = \"Desarrollador\";\r\n                factory = new DesarrolladorFactory();\r\n                break;\r\n            case \"2\":\r\n                rol = \"Tester\";\r\n                factory = new TesterFactory();\r\n                break;\r\n            case \"3\":\r\n                rol = \"Gerente de Project.Proyecto\";\r\n                factory = new GerenteProyectoFactory();\r\n                break;\r\n            case \"4\":\r\n                rol = \"Diseñador\";\r\n                factory = new DIseñadorFactory();\r\n                break;\r\n            default:\r\n                System.out.println(\"Opción inválida. Empleado no agregado.\");\r\n                return;\r\n        }\r\n\r\n        System.out.print(\"Nombre: \");\r\n        String nombre = scanner.nextLine();\r\n        System.out.print(\"Apellido: \");\r\n        String apellido = scanner.nextLine();\r\n        System.out.print(\"DNI: \");\r\n        String dni = scanner.nextLine();\r\n        System.out.print(\"ID (DEVXXX, TESXXX, GERXXX): \");\r\n        String id = scanner.nextLine();\r\n        System.out.print(\"Fecha de Nacimiento (dd/MM/yyyy): \");\r\n        String fechaNacimiento = scanner.nextLine();\r\n\r\n        EmpleadoBase empleado = factory.crearEmpleado(nombre, apellido, dni, id, fechaNacimiento);\r\n        pm.agregarEmpleado(empleado);\r\n    }\r\n\r\n    private static void listarEmpleados() {\r\n        pm.listarEmpleados();\r\n    }\r\n\r\n    private static void modificarEmpleado() {\r\n        System.out.println(\"===== Modificar Empleado =====\");\r\n        System.out.print(\"Ingrese el ID del empleado a modificar: \");\r\n        String id = scanner.nextLine();\r\n\r\n        EmpleadoBase empleado = pm.encontrarEmpleadoPorId(id);\r\n        if (empleado != null) {\r\n            System.out.print(\"Nuevo Nombre (actual: \" + empleado.getNombre() + \"): \");\r\n            String nombre = scanner.nextLine();\r\n            if (nombre.isEmpty()) nombre = empleado.getNombre();\r\n\r\n            System.out.print(\"Nuevo Apellido (actual: \" + empleado.getApellido() + \"): \");\r\n            String apellido = scanner.nextLine();\r\n            if (apellido.isEmpty()) apellido = empleado.getApellido();\r\n\r\n            System.out.print(\"Nuevo DNI (actual: \" + empleado.getDni() + \"): \");\r\n            String dni = scanner.nextLine();\r\n            if (dni.isEmpty()) dni = empleado.getDni();\r\n\r\n            System.out.print(\"Nueva Fecha de Nacimiento (actual: \" + empleado.getFechaNacimiento() + \"): \");\r\n            String fechaNacimiento = scanner.nextLine();\r\n            if (fechaNacimiento.isEmpty()) fechaNacimiento = empleado.getFechaNacimiento();\r\n\r\n            pm.modificarEmpleado(id, nombre, apellido, dni, fechaNacimiento);\r\n        } else {\r\n            System.out.println(\"Empleado con ID \" + id + \" no encontrado.\");\r\n        }\r\n    }\r\n\r\n    private static void borrarEmpleado() {\r\n        System.out.println(\"===== Borrar Empleado =====\");\r\n        System.out.print(\"Ingrese el ID del empleado a eliminar: \");\r\n        String id = scanner.nextLine();\r\n        pm.borrarEmpleado(id);\r\n    }\r\n\r\n    // Métodos para gestionar Proyectos\r\n    private static void crearProyecto() {\r\n        System.out.println(\"===== Crear Proyecto =====\");\r\n        System.out.print(\"Nombre del Proyecto: \");\r\n        String nombreProyecto = scanner.nextLine();\r\n\r\n        System.out.print(\"Descripción del Proyecto: \");\r\n        String descripcionProyecto = scanner.nextLine();\r\n\r\n        String idProyecto = \"PR\" + System.currentTimeMillis();\r\n\r\n        System.out.print(\"ID del Cliente (CLXXX): \");\r\n        String idCliente = scanner.nextLine();\r\n\r\n        Cliente cliente = encontrarClientePorId(idCliente);\r\n        if (cliente == null) {\r\n            System.out.println(\"Cliente con ID \" + idCliente + \" no encontrado. Proyecto no creado.\");\r\n            return;\r\n        }\r\n\r\n        Date fechaDeInicio = new Date();\r\n\r\n        // Crear una lista vacía de tareas para el proyecto\r\n        List<Task> tareas = new ArrayList<>();\r\n\r\n        // Pasar la lista de tareas al constructor\r\n        Proyecto proyecto = new Proyecto(nombreProyecto, descripcionProyecto, idProyecto, fechaDeInicio, cliente, tareas);\r\n        pm.agregarProyecto(proyecto);\r\n\r\n        System.out.println(\"Proyecto creado exitosamente: \" + proyecto);\r\n    }\r\n\r\n    private static void asignarEmpleadoAProyecto() {\r\n        System.out.println(\"===== Asignar Empleado a Project =====\");\r\n        System.out.print(\"Nombre del Project: \");\r\n        String nombreProyecto = scanner.nextLine();\r\n        Proyecto proyecto = pm.encontrarProyectoPorNombre(nombreProyecto);\r\n        if (proyecto == null) {\r\n            System.out.println(\"Project.Proyecto con nombre \" + nombreProyecto + \" no encontrado.\");\r\n            return;\r\n        }\r\n\r\n        System.out.print(\"ID del Empleado a asignar: \");\r\n        String idEmpleado = scanner.nextLine();\r\n        EmpleadoBase empleado = pm.encontrarEmpleadoPorId(idEmpleado);\r\n        if (empleado == null) {\r\n            System.out.println(\"Empleado con ID \" + idEmpleado + \" no encontrado.\");\r\n            return;\r\n        }\r\n\r\n        proyecto.asignarEmpleado(empleado);\r\n\r\n\r\n    }\r\n\r\n    private static void asignarTareaAProyecto() {\r\n        System.out.println(\"===== Asignar Tarea a Project.Proyecto =====\");\r\n        System.out.print(\"Nombre del Project: \");\r\n        String nombreProyecto = scanner.nextLine();\r\n        Proyecto proyecto = pm.encontrarProyectoPorNombre(nombreProyecto);\r\n\r\n        if (proyecto == null) {\r\n            System.out.println(\"Project con nombre \" + nombreProyecto + \" no encontrado.\");\r\n            return;\r\n        }\r\n\r\n        System.out.print(\"Descripción de la tarea: \");\r\n        String descripcion = scanner.nextLine();\r\n        Task tarea = new Task(\"Nueva Tarea\", descripcion, \"PENDIENTE\");  // Crea una nueva tarea\r\n\r\n        proyecto.agregarTarea(tarea); // Agrega la tarea al proyecto\r\n\r\n        System.out.println(\"Seleccione el rol para asignar la tarea:\");\r\n        System.out.println(\"1. Desarrollador\");\r\n        System.out.println(\"2. Tester\");\r\n        System.out.println(\"3. Diseñador\");\r\n        String opcion = scanner.nextLine();\r\n\r\n        String rol = \"\";\r\n        switch (opcion) {\r\n            case \"1\":\r\n                rol = \"Desarrollador\";\r\n                break;\r\n            case \"2\":\r\n                rol = \"Tester\";\r\n                break;\r\n            case \"3\":\r\n                rol = \"Diseñador\";\r\n                break;\r\n            default:\r\n                System.out.println(\"Opción inválida. Tarea no asignada.\");\r\n                return;\r\n        }\r\n\r\n        // Creamos el contexto de asignación de tareas\r\n        TaskAssignmentContext context = new TaskAssignmentContext(new RoleAndLeastTasksStrategy(rol));\r\n\r\n        // Obtener la lista de empleados del gestor\r\n        List<EmpleadoBase> empleados = pm.getEmpleados(); // Asegúrate de que este método existe en tu gestor\r\n\r\n        // Asignar la tarea utilizando la estrategia\r\n        EmpleadoBase empleadoAsignado = context.assignTask(tarea, empleados); // Asignamos la tarea usando Strategy\r\n\r\n        if (empleadoAsignado != null) {\r\n            System.out.println(\"Tarea asignada a empleado: \" + empleadoAsignado.getNombre() + \" \" + empleadoAsignado.getApellido());\r\n\r\n            // **Aca está la parte del patrón Observer**\r\n            // Agregar el empleado como observador de la tarea\r\n            tarea.añadirObservador(empleadoAsignado);\r\n            System.out.println(empleadoAsignado.getNombre() + \" ha sido agregado como observador de la tarea.\");\r\n\r\n            // Cambiar el estado de la tarea para disparar la notificación\r\n            System.out.println(\"Cambiando el estado de la tarea...\");\r\n            tarea.setStatus(\"COMPLETADO\");  // Cambiamos el estado de la tarea para probar la notificación\r\n        } else {\r\n            System.out.println(\"No se pudo asignar la tarea, no hay empleados disponibles para el rol \" + rol);\r\n        }\r\n    }\r\n}\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Main/Main.java b/src/Main/Main.java
+--- a/src/Main/Main.java	(revision de0ca8f0a76e8ee1851ee29a3f9e36bb1b1d666f)
++++ b/src/Main/Main.java	(date 1730061794613)
+@@ -97,6 +97,12 @@
+                 case "12":
+                     asignarTareaAProyecto(); // Manejo de la nueva opción
+                     break;
++                case "13":
++                    cambiarEstadoTarea(); // Manejo de la opción para cambiar el estado de la tarea
++                    break;
++                case "14":
++                    mostrarResumenProyecto(); // Manejo de la opción para mostrar resumen
++                    break;
+                 case "0":
+                     exit = true;
+                     System.out.println("Saliendo del sistema. ¡Hasta luego!");
+@@ -125,6 +131,8 @@
+         System.out.println("10. Listar Proyectos");
+         System.out.println("11. Asignar Empleado a Projecto");
+         System.out.println("12. Asignar Tarea a Proyecto");
++        System.out.println("13. Cambiar Estado de Tarea");
++        System.out.println("14. Mostrar Resumen de Proyecto");
+         System.out.println("0. Salir");
+         System.out.print("Selecciona una opción: ");
+     }
+@@ -340,12 +348,17 @@
+     }
+ 
+     private static void asignarEmpleadoAProyecto() {
++<<<<<<< HEAD
+         System.out.println("===== Asignar Empleado a Project =====");
+         System.out.print("Nombre del Project: ");
++=======
++        System.out.println("===== Asignar Empleado a Project.Proyecto =====");
++        System.out.print("Nombre del Proyecto: ");
++>>>>>>> 530069db25379ca61550dd112f1b8f68473a31b7
+         String nombreProyecto = scanner.nextLine();
+         Proyecto proyecto = pm.encontrarProyectoPorNombre(nombreProyecto);
+         if (proyecto == null) {
+-            System.out.println("Project.Proyecto con nombre " + nombreProyecto + " no encontrado.");
++            System.out.println("Proyecto con nombre " + nombreProyecto + " no encontrado.");
+             return;
+         }
+ 
+@@ -363,7 +376,7 @@
+     }
+ 
+     private static void asignarTareaAProyecto() {
+-        System.out.println("===== Asignar Tarea a Project.Proyecto =====");
++        System.out.println("===== Asignar Tarea al Proyecto =====");
+         System.out.print("Nombre del Project: ");
+         String nombreProyecto = scanner.nextLine();
+         Proyecto proyecto = pm.encontrarProyectoPorNombre(nombreProyecto);
+@@ -379,7 +392,7 @@
+ 
+         proyecto.agregarTarea(tarea); // Agrega la tarea al proyecto
+ 
+-        System.out.println("Seleccione el rol para asignar la tarea:");
++        System.out.print("Seleccione el rol para asignar la tarea:");
+         System.out.println("1. Desarrollador");
+         System.out.println("2. Tester");
+         System.out.println("3. Diseñador");
+@@ -411,20 +424,60 @@
+         EmpleadoBase empleadoAsignado = context.assignTask(tarea, empleados); // Asignamos la tarea usando Strategy
+ 
+         if (empleadoAsignado != null) {
+-            System.out.println("Tarea asignada a empleado: " + empleadoAsignado.getNombre() + " " + empleadoAsignado.getApellido());
+-
+             // **Aca está la parte del patrón Observer**
+             // Agregar el empleado como observador de la tarea
+             tarea.añadirObservador(empleadoAsignado);
+             System.out.println(empleadoAsignado.getNombre() + " ha sido agregado como observador de la tarea.");
+-
+-            // Cambiar el estado de la tarea para disparar la notificación
+-            System.out.println("Cambiando el estado de la tarea...");
+-            tarea.setStatus("COMPLETADO");  // Cambiamos el estado de la tarea para probar la notificación
+         } else {
+             System.out.println("No se pudo asignar la tarea, no hay empleados disponibles para el rol " + rol);
+         }
+     }
++
++
++    private static void cambiarEstadoTarea() {
++        System.out.println("===== Cambiar Estado de Tarea =====");
++        System.out.print("Nombre del Proyecto: ");
++        String nombreProyecto = scanner.nextLine();
++        Proyecto proyecto = pm.encontrarProyectoPorNombre(nombreProyecto);
++
++        if (proyecto == null) {
++            System.out.println("Proyecto con nombre " + nombreProyecto + " no encontrado.");
++            return;
++        }
++
++        System.out.print("Descripción de la Tarea: ");
++        String descripcionTarea = scanner.nextLine();
++        Task tarea = proyecto.buscarTareaPorDescripcion(descripcionTarea); // Cambiado a buscar por descripción
++
++        if (tarea == null) {
++            System.out.println("Tarea con descripción " + descripcionTarea + " no encontrada.");
++            return;
++        }
++
++        System.out.print("Nuevo estado (PENDIENTE, EN CURSO, FINALIZADA): ");
++        String nuevoEstado = scanner.nextLine().toUpperCase();
++
++        tarea.cambiarEstado(nuevoEstado);
++        System.out.println("El estado de la tarea '" + tarea.getDescripcion() + "' ha sido cambiado a '" + nuevoEstado + "'.");
++    }
++
++
++    private static void mostrarResumenProyecto() {
++        System.out.println("===== Mostrar Resumen de Proyecto =====");
++        System.out.print("Nombre del Proyecto: ");
++        String nombreProyecto = scanner.nextLine();
++        Proyecto proyecto = pm.encontrarProyectoPorNombre(nombreProyecto);
++
++        if (proyecto == null) {
++            System.out.println("Proyecto con nombre " + nombreProyecto + " no encontrado.");
++            return;
++        }
++
++        // Llamamos al método de resumen para mostrar el estado
++        proyecto.resumenEstadoTareas();
++    }
++
++
+ }
+ 
+ 
+Index: src/model/Task.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package model;\r\n\r\nimport Observer.Observable;\r\nimport Observer.Observador;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\npublic class Task implements Observable {\r\n    private String taskName;\r\n    private String status;\r\n    private String description;\r\n    private List<Observador> observadores;\r\n\r\n    public Task(String taskName, String description, String status) {\r\n        this.taskName = taskName;\r\n        this.status = \"Pendiente\"; // Estado inicial\r\n        this.observadores = new ArrayList<>();\r\n        this.description = description;\r\n    }\r\n\r\n    public void setDescription(String description) {\r\n        this.description = description;\r\n    }\r\n\r\n    @Override\r\n    public void añadirObservador(Observador o) {\r\n        observadores.add(o);\r\n    }\r\n\r\n    @Override\r\n    public void eliminarObservador(Observador o) {\r\n        observadores.remove(o);\r\n    }\r\n\r\n    @Override\r\n    public void notificarObservadores() { // Cambiado a plural, y sin parámetros\r\n        for (Observador observador : observadores) {\r\n            observador.actualizar(this); // `this` es la instancia actual de Task\r\n        }\r\n    }\r\n\r\n    public void setStatus(String newStatus) {\r\n        this.status = newStatus;\r\n        notificarObservadores(); // Notificar a todos los observadores\r\n    }\r\n\r\n    public String getStatus() {\r\n        return status;\r\n    }\r\n\r\n    public String getTaskName() {\r\n        return taskName;\r\n    }\r\n\r\n    public String getDescripcion() {\r\n        return description;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/model/Task.java b/src/model/Task.java
+--- a/src/model/Task.java	(revision de0ca8f0a76e8ee1851ee29a3f9e36bb1b1d666f)
++++ b/src/model/Task.java	(date 1730061759593)
+@@ -2,6 +2,7 @@
+ 
+ import Observer.Observable;
+ import Observer.Observador;
++import Project.Proyecto;
+ 
+ import java.util.ArrayList;
+ import java.util.List;
+@@ -11,14 +12,19 @@
+     private String status;
+     private String description;
+     private List<Observador> observadores;
++    private Proyecto proyecto;
+ 
+     public Task(String taskName, String description, String status) {
+         this.taskName = taskName;
+-        this.status = "Pendiente"; // Estado inicial
++        this.status = "PENDIENTE"; // Estado inicial
+         this.observadores = new ArrayList<>();
+         this.description = description;
+     }
+ 
++    public void setProyecto(Proyecto proyecto) {
++        this.proyecto = proyecto;
++    }
++
+     public void setDescription(String description) {
+         this.description = description;
+     }
+@@ -34,15 +40,19 @@
+     }
+ 
+     @Override
+-    public void notificarObservadores() { // Cambiado a plural, y sin parámetros
++    public void notificarObservadores() {
+         for (Observador observador : observadores) {
+             observador.actualizar(this); // `this` es la instancia actual de Task
+         }
+     }
+ 
+-    public void setStatus(String newStatus) {
+-        this.status = newStatus;
+-        notificarObservadores(); // Notificar a todos los observadores
++    // Método para cambiar el estado de la tarea
++    public void cambiarEstado(String nuevoEstado) {
++        this.status = nuevoEstado;
++        if (proyecto != null) {
++            proyecto.actualizarEstadoTarea(this); // Notifica al proyecto correspondiente
++        }// Cambia el estado a nuevoEstado
++        notificarObservadores(); // Notifica a todos los observadores
+     }
+ 
+     public String getStatus() {
+Index: src/adapter/OldDatabase.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package adapter;\r\n\r\npublic class OldDatabase {\r\n    public String getData() {\r\n        // Devuelve datos en un formato incompatible (por simplicidad, lo devolvemos como un String JSON)\r\n        return \"{\\\"projectName\\\":\\\"Nuevo Proyecto\\\",\" +\r\n                \"\\\"manager\\\":\\\"Jane Smith\\\",\" +\r\n                \"\\\"descripcion\\\":\\\"Descripción del proyecto\\\",\" +\r\n                \"\\\"id\\\":\\\"PR1728897800549\\\",\" +\r\n                \"\\\"fechaDeInicio\\\":\\\"2024-10-14\\\",\" +\r\n                \"\\\"cliente\\\":{\\\"nombre\\\":\\\"Juan\\\",\\\"apellido\\\":\\\"Pérez\\\",\\\"dni\\\":\\\"12345678\\\",\\\"id\\\":\\\"CLI001\\\",\\\"fechaNacimiento\\\":\\\"1985-05-10\\\",\\\"direccion\\\":\\\"Calle Falsa 123\\\"},\" +\r\n                \"\\\"empleado\\\":{\\\"nombre\\\":\\\"Carlos\\\",\\\"apellido\\\":\\\"González\\\",\\\"dni\\\":\\\"87654321\\\",\\\"id\\\":\\\"EMP001\\\",\\\"fechaNacimiento\\\":\\\"1990-08-15\\\"},\" +\r\n                \"\\\"tasks\\\":[{\\\"taskName\\\":\\\"Planificación\\\",\\\"descripcion\\\":\\\"Planificación del proyecto\\\",\\\"status\\\":\\\"pendiente\\\"},\" +\r\n                \"{\\\"taskName\\\":\\\"Implementación\\\",\\\"descripcion\\\":\\\"Desarrollo del sistema\\\",\\\"status\\\":\\\"en progreso\\\"}]}\";\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/adapter/OldDatabase.java b/src/adapter/OldDatabase.java
+--- a/src/adapter/OldDatabase.java	(revision de0ca8f0a76e8ee1851ee29a3f9e36bb1b1d666f)
++++ b/src/adapter/OldDatabase.java	(date 1730061759589)
+@@ -2,7 +2,7 @@
+ 
+ public class OldDatabase {
+     public String getData() {
+-        // Devuelve datos en un formato incompatible (por simplicidad, lo devolvemos como un String JSON)
++        // Devuelve datos en un formato incompatible
+         return "{\"projectName\":\"Nuevo Proyecto\"," +
+                 "\"manager\":\"Jane Smith\"," +
+                 "\"descripcion\":\"Descripción del proyecto\"," +
+Index: src/adapter/ProjectInterface.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/adapter/ProjectInterface.java b/src/adapter/ProjectAdapterInterface.java
+rename from src/adapter/ProjectInterface.java
+rename to src/adapter/ProjectAdapterInterface.java
+--- a/src/adapter/ProjectInterface.java	(revision de0ca8f0a76e8ee1851ee29a3f9e36bb1b1d666f)
++++ b/src/adapter/ProjectAdapterInterface.java	(date 1730061759591)
+@@ -1,5 +1,5 @@
+ package adapter;
+ 
+-public interface ProjectInterface {
++public interface ProjectAdapterInterface {
+     ProjectInfo getProjectInfo();
+ }
+Index: src/adapter/ProjectAdapter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package adapter;\r\n\r\nimport Persona.cliente.Cliente;\r\nimport Persona.employee.EmpleadoBase;\r\nimport model.Task;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.Date;\r\nimport java.util.List;\r\n\r\npublic class ProjectAdapter {\r\n    private OldDatabase oldDatabase;\r\n\r\n    public ProjectAdapter(OldDatabase oldDatabase) {\r\n        this.oldDatabase = oldDatabase;\r\n    }\r\n\r\n    private String parseValue(String jsonData, String key) {\r\n        String searchKey = \"\\\"\" + key + \"\\\":\\\"\";\r\n        int startIndex = jsonData.indexOf(searchKey);\r\n        if (startIndex == -1) {\r\n            return \"\"; // Clave no encontrada\r\n        }\r\n        startIndex += searchKey.length();\r\n        int endIndex = jsonData.indexOf(\"\\\"\", startIndex);\r\n        if (endIndex == -1) {\r\n            return \"\"; // Fin del valor no encontrado\r\n        }\r\n        return jsonData.substring(startIndex, endIndex);\r\n    }\r\n\r\n    public ProjectInfo getProjectInfo() {\r\n        String jsonData = oldDatabase.getData();\r\n\r\n        // Parsear manualmente los datos JSON (básico)\r\n        String projectName = parseValue(jsonData, \"projectName\");\r\n        String manager = parseValue(jsonData, \"manager\");\r\n        String descripcion = parseValue(jsonData, \"descripcion\");\r\n        String id = parseValue(jsonData, \"id\");\r\n        Date fechaDeInicio = new Date(); // Suponiendo que quieres establecer la fecha de inicio a la fecha actual\r\n\r\n\r\n        String clientName = parseValue(jsonData, \"nombre\");\r\n        String clientApellido = parseValue(jsonData, \"apellido\");\r\n        String clientDNI = parseValue(jsonData, \"dni\");\r\n        String clientId = parseValue(jsonData, \"id\");\r\n        String clientFechaNacimiento = parseValue(jsonData, \"fechaNacimiento\");\r\n        String clientDireccion = parseValue(jsonData, \"direccion\");\r\n\r\n// Crear objeto Cliente\r\n        Cliente cliente = new Cliente(clientName, clientApellido, clientDNI, clientId, clientFechaNacimiento, clientDireccion);\r\n\r\n// Parsear información del empleado\r\n        String empleadoId = parseValue(jsonData, \"id\");\r\n        String empleadoNombre = parseValue(jsonData, \"nombre\");\r\n        String empleadoApellido = parseValue(jsonData, \"apellido\");\r\n        String empleadoDNI = parseValue(jsonData, \"dni\");\r\n        String empleadoFechaNacimiento = parseValue(jsonData, \"fechaNacimiento\");\r\n\r\n// Crear objeto Empleado\r\n        EmpleadoBase empleado = new EmpleadoBase(empleadoNombre, empleadoApellido, empleadoDNI, empleadoId, empleadoFechaNacimiento) {\r\n            @Override\r\n            public String getRol() {\r\n                return \"\";\r\n            }\r\n        };\r\n\r\n        // Inicializa una lista de tareas\r\n        List<Task> tasks = new ArrayList<>();\r\n        int startIndex = jsonData.indexOf(\"[{\");\r\n        int endIndex = jsonData.indexOf(\"}]\") + 2;\r\n\r\n        if (startIndex != -1 && endIndex != -1) {\r\n            String tasksArray = jsonData.substring(startIndex, endIndex);\r\n            String[] taskEntries = tasksArray.split(\"\\\\},\\\\{\");\r\n\r\n            for (String taskEntry : taskEntries) {\r\n                // Asegúrate de que cada entrada sea un JSON válido\r\n                taskEntry = taskEntry.trim();\r\n                taskEntry = taskEntry.startsWith(\"{\") ? taskEntry : \"{\" + taskEntry;\r\n                taskEntry = taskEntry.endsWith(\"}\") ? taskEntry : taskEntry + \"}\";\r\n\r\n                String taskName = parseValue(taskEntry, \"taskName\");\r\n                String status = parseValue(taskEntry, \"status\");\r\n                String descripcionTarea = parseValue(taskEntry, \"descripcion\"); // Asumiendo que esto también existe\r\n\r\n                // Solo agregar la tarea si los valores no están vacíos\r\n                if (!taskName.isEmpty() && !status.isEmpty()) {\r\n                    tasks.add(new Task(taskName, descripcionTarea, status));\r\n                }\r\n            }\r\n        }\r\n\r\n        // Comprobar si hay errores en la información del proyecto\r\n        if (projectName.isEmpty() || manager.isEmpty()) {\r\n            System.out.println(\"Error: El JSON no contiene la información necesaria del proyecto.\");\r\n            return null;\r\n        }\r\n\r\n        // Crear y devolver un nuevo objeto ProjectInfo\r\n        return new ProjectInfo(projectName, manager, tasks, cliente, empleado, descripcion, id, fechaDeInicio);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/adapter/ProjectAdapter.java b/src/adapter/ProjectAdapter.java
+--- a/src/adapter/ProjectAdapter.java	(revision de0ca8f0a76e8ee1851ee29a3f9e36bb1b1d666f)
++++ b/src/adapter/ProjectAdapter.java	(date 1730061759590)
+@@ -1,14 +1,12 @@
+ package adapter;
+-
+ import Persona.cliente.Cliente;
+ import Persona.employee.EmpleadoBase;
+ import model.Task;
+-
+ import java.util.ArrayList;
+ import java.util.Date;
+ import java.util.List;
+ 
+-public class ProjectAdapter {
++public class ProjectAdapter implements ProjectAdapterInterface {
+     private OldDatabase oldDatabase;
+ 
+     public ProjectAdapter(OldDatabase oldDatabase) {
+@@ -19,7 +17,7 @@
+         String searchKey = "\"" + key + "\":\"";
+         int startIndex = jsonData.indexOf(searchKey);
+         if (startIndex == -1) {
+-            return ""; // Clave no encontrada
++            return "";  //extrae un valor de un JSON en formato de cadena de texto usando una clave key
+         }
+         startIndex += searchKey.length();
+         int endIndex = jsonData.indexOf("\"", startIndex);
+@@ -30,7 +28,7 @@
+     }
+ 
+     public ProjectInfo getProjectInfo() {
+-        String jsonData = oldDatabase.getData();
++        String jsonData = oldDatabase.getData();// obtiene la información del proyecto desde la base de datos antigua
+ 
+         // Parsear manualmente los datos JSON (básico)
+         String projectName = parseValue(jsonData, "projectName");
+@@ -69,7 +67,7 @@
+         List<Task> tasks = new ArrayList<>();
+         int startIndex = jsonData.indexOf("[{");
+         int endIndex = jsonData.indexOf("}]") + 2;
+-
++        //Busca el array de tareasy lo divide en entradas individuales para extraer la información de cada tarea
+         if (startIndex != -1 && endIndex != -1) {
+             String tasksArray = jsonData.substring(startIndex, endIndex);
+             String[] taskEntries = tasksArray.split("\\},\\{");
+Index: src/Persona/employee/EmpleadoBase.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package Persona.employee;\r\n\r\nimport Observer.Observador;\r\nimport Persona.Persona;\r\nimport model.Task;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.Date;\r\nimport java.util.List;\r\n\r\n// Empleado.java\r\npublic abstract class EmpleadoBase implements Empleado, Observador {\r\n    private String nombre;\r\n    private String apellido;\r\n    private String dni;\r\n    private String id;\r\n    private String fechaNacimiento;\r\n    private String herramienta;\r\n    private List<Task> assignedTasks;\r\n\r\n    public EmpleadoBase(String nombre, String apellido, String dni, String id, String fechaNacimiento) {\r\n        this.nombre = nombre;\r\n        this.apellido = apellido;\r\n        this.dni = dni;\r\n        this.id = id;\r\n        this.fechaNacimiento = fechaNacimiento;\r\n        this.assignedTasks = new ArrayList<>();\r\n    }\r\n\r\n    public void actualizar(Task tarea) {\r\n        System.out.println(\"Empleado \" + nombre + \" ha sido notificado. La tarea '\"\r\n                + tarea.getTaskName() + \"' ha cambiado su estado a: \" + tarea.getStatus());\r\n    }\r\n\r\n    @Override\r\n    public String getId() {\r\n        return id;\r\n    }\r\n\r\n    @Override\r\n    public String getNombre() {\r\n        return nombre;\r\n    }\r\n\r\n    @Override\r\n    public void setNombre(String nombre) {\r\n        this.nombre = nombre;\r\n    }\r\n\r\n    @Override\r\n    public String getApellido() {\r\n        return apellido;\r\n    }\r\n\r\n    @Override\r\n    public void setApellido(String apellido) {\r\n        this.apellido = apellido;\r\n    }\r\n\r\n    @Override\r\n    public String getFechaNacimiento() {\r\n        return fechaNacimiento;\r\n    }\r\n\r\n    @Override\r\n    public void setFechaNacimiento(String fechaNacimiento) {\r\n        this.fechaNacimiento = fechaNacimiento;\r\n    }\r\n\r\n\r\n    public String getDni() {\r\n        return dni;\r\n    }\r\n\r\n    @Override\r\n    public void setDni(String dni) {\r\n        this.dni = dni;\r\n    }\r\n\r\n    @Override\r\n    public String getHerramienta() {\r\n        return herramienta;\r\n    }\r\n\r\n    @Override\r\n    public void setHerramienta(String herramienta) {\r\n        this.herramienta = herramienta;\r\n    }\r\n\r\n    public void performTask(Task task) {\r\n        assignedTasks.add(task); // Agrega la tarea a la lista de tareas asignadas\r\n    }\r\n\r\n    public int getAssignedTasksCount() {\r\n        return assignedTasks.size(); // Devuelve la cantidad de tareas asignadas\r\n    }\r\n\r\n\r\n    @Override\r\n    public String toString() {\r\n        return getRol() + \" - ID: \" + id + \", Nombre: \" + nombre + \" \" + apellido + \", Herramienta: \" + herramienta;\r\n    }\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Persona/employee/EmpleadoBase.java b/src/Persona/employee/EmpleadoBase.java
+--- a/src/Persona/employee/EmpleadoBase.java	(revision de0ca8f0a76e8ee1851ee29a3f9e36bb1b1d666f)
++++ b/src/Persona/employee/EmpleadoBase.java	(date 1730061759587)
+@@ -28,8 +28,7 @@
+     }
+ 
+     public void actualizar(Task tarea) {
+-        System.out.println("Empleado " + nombre + " ha sido notificado. La tarea '"
+-                + tarea.getTaskName() + "' ha cambiado su estado a: " + tarea.getStatus());
++        System.out.println("Empleado " + nombre + " ha sido notificado.");
+     }
+ 
+     @Override
