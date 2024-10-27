@@ -1,8 +1,8 @@
 package Project;// src/com/techsolutions/project/Project.Proyecto.java
 
+import Persona.GerenteProyecto;
 import Persona.cliente.Cliente;
 import Persona.employee.EmpleadoBase;
-import Persona.employee.GerenteProyecto;
 import model.Task;
 
 import java.util.ArrayList;

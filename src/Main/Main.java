@@ -222,8 +222,7 @@ public class Main {
         System.out.println("Seleccione el rol del empleado:");
         System.out.println("1. Desarrollador");
         System.out.println("2. Tester");
-        System.out.println("3. Gerente de Project.Proyecto");
-        System.out.println("4. Diseñador");
+        System.out.println("3. Diseñador");
         System.out.print("Opción: ");
         String opcion = scanner.nextLine();
 
@@ -240,10 +239,6 @@ public class Main {
                 factory = new TesterFactory();
                 break;
             case "3":
-                rol = "Gerente de Project.Proyecto";
-                factory = new GerenteProyectoFactory();
-                break;
-            case "4":
                 rol = "Diseñador";
                 factory = new DIseñadorFactory();
                 break;
