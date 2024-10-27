@@ -121,7 +121,7 @@ public class Main {
         System.out.println("6. Listar Empleados");
         System.out.println("7. Modificar Empleado");
         System.out.println("8. Borrar Empleado");
-        System.out.println("9. Crear Project.Proyecto");
+        System.out.println("9. Crear Project");
         System.out.println("10. Listar Proyectos");
         System.out.println("11. Asignar Empleado a Projecto");
         System.out.println("12. Asignar Tarea a Proyecto");
@@ -340,8 +340,8 @@ public class Main {
     }
 
     private static void asignarEmpleadoAProyecto() {
-        System.out.println("===== Asignar Empleado a Project.Proyecto =====");
-        System.out.print("Nombre del Project.Proyecto: ");
+        System.out.println("===== Asignar Empleado a Project =====");
+        System.out.print("Nombre del Project: ");
         String nombreProyecto = scanner.nextLine();
         Proyecto proyecto = pm.encontrarProyectoPorNombre(nombreProyecto);
         if (proyecto == null) {

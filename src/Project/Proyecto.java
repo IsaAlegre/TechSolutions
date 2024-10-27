@@ -37,21 +37,6 @@ public class Proyecto {
         return nombre;
     }
 
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public GerenteProyecto getGerente() {
-        return gerente;
-    }
-
-    public void setGerente(GerenteProyecto gerente) {
-        this.gerente = gerente;
-    }
-
-    public List<EmpleadoBase> getEmpleados() {
-        return empleados;
-    }
 
     public void agregarTarea(Task tarea) {
         tareas.add(tarea);
@@ -81,16 +66,6 @@ public class Proyecto {
             System.out.println("Empleado " + empleado.getNombre() + " " + empleado.getApellido() + " asignado al proyecto " + nombre);
         } else {
             System.out.println("El empleado ya está asignado al proyecto.");
-        }
-    }
-
-    public void borrarEmpleado(String idEmpleado) {
-        EmpleadoBase empleado = empleados.stream().filter(e -> e.getId().equals(idEmpleado)).findFirst().orElse(null);
-        if (empleado != null) {
-            empleados.remove(empleado);
-            System.out.println("Empleado " + empleado.getNombre() + " " + empleado.getApellido() + " eliminado del proyecto " + nombre);
-        } else {
-            System.out.println("Empleado con ID " + idEmpleado + " no encontrado en el proyecto.");
         }
     }
 
