@@ -8,13 +8,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class ProjectAdapter {
+public class ProjectAdapter implements ProjectInterface {
     private OldDatabase oldDatabase;
 
     public ProjectAdapter(OldDatabase oldDatabase) {
         this.oldDatabase = oldDatabase;
     }
-
+//Extrae un valor específico de un JSON en formato de texto
     private String parseValue(String jsonData, String key) {
         String searchKey = "\"" + key + "\":\"";
         int startIndex = jsonData.indexOf(searchKey);
@@ -32,12 +32,12 @@ public class ProjectAdapter {
     public ProjectInfo getProjectInfo() {
         String jsonData = oldDatabase.getData();
 
-        // Parsear manualmente los datos JSON (básico)
+        // Parsear manualmente los datos JSON (extrae info de una cadena de texto)
         String projectName = parseValue(jsonData, "projectName");
         String manager = parseValue(jsonData, "manager");
         String descripcion = parseValue(jsonData, "descripcion");
         String id = parseValue(jsonData, "id");
-        Date fechaDeInicio = new Date(); // Suponiendo que quieres establecer la fecha de inicio a la fecha actual
+        Date fechaDeInicio = new Date(); //fecha actual
 
 
         String clientName = parseValue(jsonData, "nombre");
@@ -82,7 +82,7 @@ public class ProjectAdapter {
 
                 String taskName = parseValue(taskEntry, "taskName");
                 String status = parseValue(taskEntry, "status");
-                String descripcionTarea = parseValue(taskEntry, "descripcion"); // Asumiendo que esto también existe
+                String descripcionTarea = parseValue(taskEntry, "descripcion");
 
                 // Solo agregar la tarea si los valores no están vacíos
                 if (!taskName.isEmpty() && !status.isEmpty()) {
