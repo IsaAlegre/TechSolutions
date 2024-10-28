@@ -56,6 +56,7 @@ public class Proyecto {
                 ", id='" + id + '\'' +
                 ", fechaDeInicio=" + fechaDeInicio +
                 ", cliente=" + cliente +
+                ", gerente=" + (gerente != null ? gerente.getNombre() + " " + gerente.getApellido() : "Sin asignar") +
                 ", tareas=" + tareas.size() + " tareas" +
                 '}';
     }
@@ -77,5 +78,15 @@ public class Proyecto {
             for (Proyecto proyecto : proyectos) {
                 System.out.println(proyecto);
             }}}
+
+
+    public void asignarGerente(GerenteProyecto gerente) {
+        this.gerente = gerente;
+    }
+
+    // Método para obtener el gerente del proyecto (si necesitas consultarlo después)
+    public GerenteProyecto getGerente() {
+        return gerente;
+    }
 
 }

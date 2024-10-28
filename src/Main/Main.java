@@ -2,6 +2,7 @@
 package Main;
 import Factory.*;
 import Manager.GestorProyectosEmpleados;
+import Persona.GerenteProyecto;
 import Persona.cliente.Cliente;
 import Persona.employee.EmpleadoBase;
 import Project.Proyecto;
@@ -327,8 +328,24 @@ public class Main {
         // Crear una lista vacía de tareas para el proyecto
         List<Task> tareas = new ArrayList<>();
 
-        // Pasar la lista de tareas al constructor
+        System.out.println("===== Datos del Gerente del Proyecto =====");
+        System.out.print("Nombre del Gerente: ");
+        String nombreGerente = scanner.nextLine();
+        System.out.print("Apellido del Gerente: ");
+        String apellidoGerente = scanner.nextLine();
+        System.out.print("DNI del Gerente: ");
+        String dniGerente = scanner.nextLine();
+        String idGerente = "GER" + System.currentTimeMillis();
+        System.out.print("Fecha de Nacimiento del Gerente (dd/MM/yyyy): ");
+        String fechaNacimientoGerente = scanner.nextLine();
+
+        // Crear el gerente con los datos ingresados
+        GerenteProyecto gerente = new GerenteProyecto(nombreGerente, apellidoGerente, dniGerente, idGerente, fechaNacimientoGerente);
+        System.out.println("Gerente asignado al proyecto: " + gerente.getNombre() + " " + gerente.getApellido());
+
+        // Crear el proyecto con el cliente y las tareas
         Proyecto proyecto = new Proyecto(nombreProyecto, descripcionProyecto, idProyecto, fechaDeInicio, cliente, tareas);
+        proyecto.asignarGerente(gerente);  // Asigna el gerente al proyecto (asumiendo que este método existe en Proyecto)
         pm.agregarProyecto(proyecto);
 
         System.out.println("Proyecto creado exitosamente: " + proyecto);
@@ -358,7 +375,7 @@ public class Main {
     }
 
     private static void asignarTareaAProyecto() {
-        System.out.println("===== Asignar Tarea a Project.Proyecto =====");
+        System.out.println("===== Asignar Tarea a Project =====");
         System.out.print("Nombre del Project: ");
         String nombreProyecto = scanner.nextLine();
         Proyecto proyecto = pm.encontrarProyectoPorNombre(nombreProyecto);
