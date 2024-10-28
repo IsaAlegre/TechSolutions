@@ -345,7 +345,7 @@ public class Main {
 
         // Crear el proyecto con el cliente y las tareas
         Proyecto proyecto = new Proyecto(nombreProyecto, descripcionProyecto, idProyecto, fechaDeInicio, cliente, tareas);
-        proyecto.asignarGerente(gerente);  // Asigna el gerente al proyecto (asumiendo que este método existe en Proyecto)
+        proyecto.asignarGerente(gerente);  // Asigna el gerente al proyecto
         pm.agregarProyecto(proyecto);
 
         System.out.println("Proyecto creado exitosamente: " + proyecto);

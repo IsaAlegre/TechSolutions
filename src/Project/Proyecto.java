@@ -50,15 +50,14 @@ public class Proyecto {
 
     @Override
     public String toString() {
-        return "Proyecto{" +
-                "nombre='" + nombre + '\'' +
-                ", descripcion='" + descripcion + '\'' +
-                ", id='" + id + '\'' +
-                ", fechaDeInicio=" + fechaDeInicio +
-                ", cliente=" + cliente +
-                ", gerente=" + (gerente != null ? gerente.getNombre() + " " + gerente.getApellido() : "Sin asignar") +
-                ", tareas=" + tareas.size() + " tareas" +
-                '}';
+        return "Proyecto:\n" +
+                "  Nombre: " + nombre + "\n" +
+                "  Descripción: " + descripcion + "\n" +
+                "  ID: " + id + "\n" +
+                "  Fecha de Inicio: " + fechaDeInicio + "\n" +
+                "  Cliente: " + cliente + "\n" +
+                "  Gerente: " + (gerente != null ? gerente.getNombre() + " " + gerente.getApellido() : "Sin asignar") + "\n" +
+                "  Tareas: " + tareas.size() + " tareas\n";
     }
 
     public void asignarEmpleado(EmpleadoBase empleado) {
